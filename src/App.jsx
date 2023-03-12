@@ -1,6 +1,7 @@
 import './App.css'
 import HomePage from './pages/HomePage'
 import { Routes, Route } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import  BoardComponent from './components/BoardComponent'
 
 function App() {
