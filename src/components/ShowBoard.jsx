@@ -84,14 +84,7 @@ const ShowBoard = () => {
 	}
 
   	return (
-    	<div className='row'>
-			<div className='hc1'>
-				<Chessboard id='chessboard' boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
-			</div>
-			<div className='hc2'>
-				<button>Try now!</button>
-			</div>
-    </div>
+    	<Chessboard id='chessboard' boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
   	)
 }
 

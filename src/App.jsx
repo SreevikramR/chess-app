@@ -1,13 +1,17 @@
-import { Chessboard } from 'react-chessboard'
 import './App.css'
-import BoardComponent from './components/BoardComponent'
 import HomePage from './pages/HomePage'
+import { Routes, Route } from 'react-router-dom'
+import  BoardComponent from './components/BoardComponent'
 
 function App() {
 
   return (
-    //<BoardComponent/>
-    <HomePage/>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/board" element={<BoardComponent/>}/>
+      </Routes>
+    </>
   )
 }
 
