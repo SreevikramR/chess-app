@@ -1,4 +1,4 @@
-import { getLines, getMoveSequence } from './MoveRetreival'
+import { getLines, getMoveSequence } from './MoveRetreival.jsx'
 
 const MoveSelector = (moveHistory) => { 
   const ruyLopezlines = getLines('Ruy Lopez')
