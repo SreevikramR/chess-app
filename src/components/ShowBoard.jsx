@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
-import './ShowBoard.css';
 import { getMoveSequence, getLines, getOpenings } from './MoveRetreival';
 
 const ShowBoard = () => {
@@ -84,7 +83,7 @@ const ShowBoard = () => {
 	}
 
   	return (
-    	<Chessboard id='chessboard' boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
+    	<Chessboard boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
   	)
 }
 
