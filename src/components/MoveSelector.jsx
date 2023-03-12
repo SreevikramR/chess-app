@@ -1,11 +1,11 @@
-import { getLines, getMoveSequence } from './moveRetreival'
+import { getLines, getMoveSequence } from './MoveRetreival'
 
 const MoveSelector = (moveHistory) => { 
-  const ruyLopezlines = getMoveSequence('Ruy Lopez')
+  const ruyLopezlines = getLines('Ruy Lopez')
   console.log(ruyLopezlines)
 
   var moveSequence = []
-  moveSequence = getLines('Ruy Lopez', ruyLopezlines[2])
+  moveSequence = getMoveSequence('Ruy Lopez', ruyLopezlines[2])
 
   console.log(moveHistory);
   var i = 0;

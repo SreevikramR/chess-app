@@ -1,12 +1,16 @@
 import data from '../Data/openings.json';
 
-export function getMoveSequence(openingName) {
+export function getLines(openingName) {
     const openingLines = Object.keys(data.Openings[openingName]['lines'])
-    console.log("Ruy Lopez lines: " + openingLines)
     return openingLines;
 }
 
-export function getLines(opening, openingLine) {
+export function getMoveSequence(opening, openingLine) {
     const line = data.Openings[opening]['lines'][openingLine]
     return line;
+}
+
+export function getOpenings() {
+    const openings = ['Ruy Lopez']
+    return openings;
 }
