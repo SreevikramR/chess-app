@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
-import navigateTo from "../components/NavigationManager"
 
 function HomePage() {
     let isHomePage = true;  
@@ -101,7 +100,6 @@ function HomePage() {
         console.log("button clicked")
         isHomePage = false
         console.log(isHomePage);
-        navigateTo('boardPage')
     }
 
     return(
@@ -113,7 +111,9 @@ function HomePage() {
                     
 			    </div>
 			    <div className='hc2'>
-                    <button onClick={homePageFalse}>Try now!</button>
+				    <Link to='/board'>
+                        <button onClick={homePageFalse}>Try now!</button>
+                    </Link>
 			    </div>
     	    </div>  
         </div>
