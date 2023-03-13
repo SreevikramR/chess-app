@@ -1,26 +1,26 @@
 import { getLines, getMoveSequence } from './MoveRetreival.jsx'
 
-const MoveSelector = (moveHistory) => { 
-  const ruyLopezlines = getLines('Ruy Lopez')
-  console.log(ruyLopezlines)
+const MoveSelector = (moveHistory, openingName, lineIndex) => {
 
-  var moveSequence = []
-  moveSequence = getMoveSequence('Ruy Lopez', ruyLopezlines[2])
+	const openingLines = getLines(openingName)
+	console.log(openingLines)
 
-  console.log(moveHistory);
-  var i = 0;
-  var j = moveHistory.length;
+	var moveSequence = []
+	moveSequence = getMoveSequence(openingName, openingLines[lineIndex])
 
-  for(i=moveHistory.length - 1; i < moveHistory.length; i++){
-    if(moveHistory[i] !== moveSequence[i]){
-      console.log("moveHistory: " + moveHistory[i] + ", moveSequence: " + moveSequence[i]);
-      break
-    } else {
-      console.log("Next move: " + moveSequence[j]);
-      return moveSequence[j]
-    }
-  }
+  	console.log(moveHistory);
+  	var i = 0;
+  	var j = moveHistory.length;
 
+	for(i=moveHistory.length - 1; i < moveHistory.length; i++){
+		if(moveHistory[i] !== moveSequence[i]){
+		console.log("moveHistory: " + moveHistory[i] + ", moveSequence: " + moveSequence[i]);
+		break
+		} else {
+		console.log("Next move: " + moveSequence[j]);
+		return moveSequence[j]
+		}
+	}
 }
 
 export default MoveSelector
