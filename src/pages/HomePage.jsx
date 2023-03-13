@@ -1,19 +1,20 @@
 import React from "react"
 import './HomePage.css'
 import { Link } from "react-router-dom"
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
+import navigateTo from "../components/NavigationManager"
 
 function HomePage() {
-    let isHomePage = true;
+    let isHomePage = true;  
 
     const ShowBoard = () => {
         const [game, setGame] = useState(new Chess());
         const [position, setPosition] = useState();
         const [boardWidth, setBoardWidth] = useState();
-        const openingList = getOpenings();	
+        const openingList = getOpenings();
         let moveSequence = [];
         let randomOpeningIndex;
         let opening;
@@ -21,7 +22,7 @@ function HomePage() {
         let openingVariationIndex;	
     
         var viewPortWidth = window.innerWidth;
-        var viewPortHeight = window.innerHeight;
+        var viewPortHeight = window.innerHeight;        
         
         window.addEventListener('load', function() { 
             viewPortWidth = window.innerWidth;
@@ -35,7 +36,7 @@ function HomePage() {
             playMoves();
         }, false);
         
-        window.onresize = function(event) {
+        window.onresize = function() {
             console.log("window resized")
             viewPortWidth = window.innerWidth;
             viewPortHeight = window.innerHeight;
@@ -49,11 +50,11 @@ function HomePage() {
         
         const makeMove = (move) => {
             const gameCopy = game;
-            console.log(game.pgn());
             gameCopy.loadPgn(game.pgn());
             gameCopy.move(move);
             setGame(gameCopy);
             setPosition(game.fen());
+            console.log(game.pgn());
         }
         
         const isDraggable = (piece, sourceSquare) => {return false}
@@ -100,6 +101,7 @@ function HomePage() {
         console.log("button clicked")
         isHomePage = false
         console.log(isHomePage);
+        navigateTo('boardPage')
     }
 
     return(
@@ -108,11 +110,10 @@ function HomePage() {
             <div className='row'>
 			    <div className='hc1'>
 				    <ShowBoard/>
+                    
 			    </div>
 			    <div className='hc2'>
-				    <Link to='/board'>
-                        <button onClick={homePageFalse}>Try now!</button>
-                    </Link>
+                    <button onClick={homePageFalse}>Try now!</button>
 			    </div>
     	    </div>  
         </div>

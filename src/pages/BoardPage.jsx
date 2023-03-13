@@ -1,14 +1,17 @@
 import BoardComponent from "../components/BoardComponent"
 import './BoardPage.css'
-import { Link } from "react-router-dom"
+import navigateTo from "../components/NavigationManager"
 
-function BoardPage(params) {
+function BoardPage() {
+
+    function onClick(){
+        navigateTo('home')
+    }
+
     return(
         <>
             <BoardComponent/>
-            <Link to={'/'}>
-                <button>Back</button>
-            </Link>
+                <button onClick={onClick}>Back</button>
         </>
     )
 }
