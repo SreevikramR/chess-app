@@ -37,7 +37,7 @@ function HomePage() {
                 setBoardWidth(viewPortWidth/2);
                 console.log("width set")
             }
-        }, 100)
+        }, 10)
         
         window.addEventListener('load', function() { 
             viewPortWidth = window.innerWidth;
@@ -76,6 +76,7 @@ function HomePage() {
         
         const isDraggable = (piece, sourceSquare) => {return false}
         
+        playMoves()
         async function playMoves(){
             const gameCopy = new Chess();
             game.loadPgn(gameCopy.pgn())
@@ -108,10 +109,10 @@ function HomePage() {
                 return Math.random() * (max);
             }
         }
-        
-            return (
+
+        return (
             <Chessboard boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
-            )
+        )
     }
 
     function homePageFalse(){
