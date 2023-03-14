@@ -35,20 +35,15 @@ function HomePage() {
                 setBoardWidth(500);
             } else {
                 setBoardWidth(viewPortWidth/2);
-                console.log("width set")
             }
-        }, 10)
+        }, 500)
         
         window.addEventListener('load', function() { 
             viewPortWidth = window.innerWidth;
             viewPortHeight = window.innerHeight;
-        
-            if(viewPortWidth/2 > 500){
-                setBoardWidth(500);
-            } else {
-                setBoardWidth(viewPortWidth/2);
-            }
-            playMoves();
+
+            playMoves()
+            console.log("onload function")
         }, false);
         
         window.onresize = function() {
@@ -62,8 +57,6 @@ function HomePage() {
                 setBoardWidth(viewPortWidth/2);
             }
         };
-
-        console.log('before resize')
         
         const makeMove = (move) => {
             const gameCopy = game;
@@ -76,7 +69,6 @@ function HomePage() {
         
         const isDraggable = (piece, sourceSquare) => {return false}
         
-        playMoves()
         async function playMoves(){
             const gameCopy = new Chess();
             game.loadPgn(gameCopy.pgn())
