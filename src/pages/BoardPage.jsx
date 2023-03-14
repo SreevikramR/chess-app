@@ -21,6 +21,13 @@ function BoardPage() {
 
     var viewPortWidth = window.innerWidth;
     var viewPortHeight = window.innerHeight;
+    let openingLineIndex = getLineIndex(openeingName, openingLine);
+    moveSequence = getMoveSequence(openeingName, openingLine);
+
+    const [game, setGame] = useState(new Chess());
+    const [position, setPosition] = useState();
+    const [boardWidth, setBoardWidth] = useState(500);
+    let nextMove;
 
     window.setTimeout(function(){
         viewPortWidth = window.innerWidth;
@@ -32,14 +39,6 @@ function BoardPage() {
             setBoardWidth(viewPortWidth/2);
         }
     }, 100)
-
-    let openingLineIndex = getLineIndex(openeingName, openingLine);
-    moveSequence = getMoveSequence(openeingName, openingLine);
-
-    const [game, setGame] = useState(new Chess());
-    const [position, setPosition] = useState();
-    const [boardWidth, setBoardWidth] = useState(500);
-    let nextMove;
 
     viewPortWidth = window.innerWidth;
     viewPortHeight = window.innerHeight;
