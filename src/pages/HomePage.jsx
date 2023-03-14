@@ -7,7 +7,22 @@ import { Chessboard } from 'react-chessboard'
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
 
 function HomePage() {
+
+    var viewPortWidth = window.innerWidth;
+    var viewPortHeight = window.innerHeight;
+    
     let isHomePage = true;  
+
+    window.setTimeout(function(){
+        viewPortWidth = window.innerWidth;
+        viewPortHeight = window.innerHeight;
+        
+        if(viewPortWidth/2 > 500){
+            setBoardWidth(500);
+        } else {
+            setBoardWidth(viewPortWidth/2);
+        }
+    }, 100)
 
     const ShowBoard = () => {
         const [game, setGame] = useState(new Chess());
@@ -20,8 +35,8 @@ function HomePage() {
         let openingVariation
         let openingVariationIndex;	
     
-        var viewPortWidth = window.innerWidth;
-        var viewPortHeight = window.innerHeight;        
+        viewPortWidth = window.innerWidth;
+        viewPortHeight = window.innerHeight;        
         
         window.addEventListener('load', function() { 
             viewPortWidth = window.innerWidth;
