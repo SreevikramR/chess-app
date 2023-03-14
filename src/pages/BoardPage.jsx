@@ -14,6 +14,8 @@ let movePlayed;
 let moveMessage;
 let moveSequence = [];
 let image;
+let moveHistory = [];
+let indexid = 'ti0';
 
 function BoardPage() {
 
@@ -23,7 +25,6 @@ function BoardPage() {
     const [game, setGame] = useState(new Chess());
     const [position, setPosition] = useState();
     const [boardWidth, setBoardWidth] = useState(500);
-    let moveHistory = [];
     let nextMove;
 
     var viewPortWidth = window.innerWidth;
@@ -37,7 +38,7 @@ function BoardPage() {
         if(viewPortWidth/2 > 500){
             setBoardWidth(500);
         } else {
-            setBoardWidth(viewPortWidth/2);
+            setBoardWidth(viewPortWidth/2.2);
         }
     };
 
@@ -48,7 +49,7 @@ function BoardPage() {
         if(viewPortWidth/2 > 500){
             setBoardWidth(500);
         } else {
-            setBoardWidth(viewPortWidth/2);
+            setBoardWidth(viewPortWidth/2.2);
         }
     }, false);
 
@@ -67,7 +68,10 @@ function BoardPage() {
         console.log(nextMove)
 
         if(nextMove === "invalid"){
+            document.getElementById(indexid).className = '';
             moveMessage = " is not the correct move"
+            indexid = 'ti' + (moveHistory.length - 1);
+            document.getElementById(indexid).classList.add('wrongMove');
             image = close
             movePlayed = moveHistory[moveHistory.length - 1]
             setTimeout(() =>  {
@@ -83,7 +87,10 @@ function BoardPage() {
             console.log("move sequence complete")
         } else {
             setTimeout(() => {
+                document.getElementById(indexid).className = '';
                 moveMessage = " is the correct move!"
+                indexid = 'ti' + (moveHistory.length - 1);
+                document.getElementById(indexid).classList.add('correctMove');
                 image = correct
                 movePlayed = moveHistory[moveHistory.length - 1]
 
@@ -107,6 +114,7 @@ function BoardPage() {
         gameCopy.move(nextMove);
         setGame(gameCopy);
         setPosition(game.fen())
+        moveHistory.push(nextMove)
     }
 
     const onDrop = (startSquare, endSquare) => {
@@ -134,6 +142,7 @@ function BoardPage() {
         moveSequence = getMoveSequence(openeingName, openingLine[openingLineIndex]);
         setGame(gameCopy);
         setPosition(gameCopy.fen());
+        document.getElementById(indexid).className = ''
         moveHistory = []
     }
 
@@ -144,17 +153,63 @@ function BoardPage() {
                     <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} isDraggablePiece={isDraggable} animationDuration={750}/>
                 </div>
                 <div className="hc2">
-                    <div className="box">
-                        <h1>{openeingName}</h1>
-                        <h2>{openingLine}</h2>
-                    </div>
-                    <img src={image}/>
-                    <h3>{movePlayed}{moveMessage}</h3>
+                    <h1>{openeingName}</h1>
+                    <table>
+                        <tr>
+                            <th colSpan={3}>
+                                <h2>{openingLine}</h2>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>1</td>
+                            <td id='ti0'>{moveHistory[0]}</td>
+                            <td id='ti1'>{moveHistory[1]}</td>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>2</td>
+                            <td id='ti2'>{moveHistory[2]}</td>
+                            <td id='ti3'>{moveHistory[3]}</td>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>3</td>
+                            <td id='ti4'>{moveHistory[4]}</td>
+                            <td id='ti5'>{moveHistory[5]}</td>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>4</td>
+                            <td id='ti6'>{moveHistory[6]}</td>
+                            <td id='ti7'>{moveHistory[7]}</td>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>5</td>
+                            <td id='ti8'>{moveHistory[8]}</td>
+                            <td id='ti9'>{moveHistory[9]}</td>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>6</td>
+                            <td id='ti10'>{moveHistory[10]}</td>
+                            <td id='ti11'>{moveHistory[11]}</td>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>7</td>
+                            <td id='ti12'>{moveHistory[12]}</td>
+                            <td id='ti13'>{moveHistory[13]}</td>
+                        </tr>
+                        <tr>
+                            <td className='indexNumber'>8</td>
+                            <td id='ti14'>{moveHistory[14]}</td>
+                            <td id='ti15'>{moveHistory[15]}</td>
+                        </tr>
+                    </table>
+
+                    {/* <img src={image}/>
+                    <h3>{movePlayed}{moveMessage}</h3> */}
+                
                 </div>
             </div>
             <div className='navigationButtons'>
                     <button onClick={onClick}>Back</button>
-                    <button onClick={changeLine}>Try a different line!</button>
+                    <button onClick={changeLine}>Try another line!</button>
             </div>
         </>
         
