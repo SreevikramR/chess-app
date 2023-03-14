@@ -19,6 +19,20 @@ let indexid = 'ti0';
 
 function BoardPage() {
 
+    var viewPortWidth = window.innerWidth;
+    var viewPortHeight = window.innerHeight;
+
+    window.setTimeout(function(){
+        viewPortWidth = window.innerWidth;
+        viewPortHeight = window.innerHeight;
+        
+        if(viewPortWidth/2 > 500){
+            setBoardWidth(500);
+        } else {
+            setBoardWidth(viewPortWidth/2);
+        }
+    }, 100)
+
     let openingLineIndex = getLineIndex(openeingName, openingLine);
     moveSequence = getMoveSequence(openeingName, openingLine);
 
@@ -27,8 +41,8 @@ function BoardPage() {
     const [boardWidth, setBoardWidth] = useState(500);
     let nextMove;
 
-    var viewPortWidth = window.innerWidth;
-    var viewPortHeight = window.innerHeight;
+    viewPortWidth = window.innerWidth;
+    viewPortHeight = window.innerHeight;
 
     window.onresize = function() {
         console.log("window resized")
