@@ -13,6 +13,7 @@ function HomePage() {
     let isHomePage = true;
 
     const ShowBoard = () => {
+        console.log("Showboard run")
         const [boardWidth, setBoardWidth] = useState(500);
         const [game, setGame] = useState(new Chess());
         const [position, setPosition] = useState();
@@ -34,6 +35,7 @@ function HomePage() {
                 setBoardWidth(500);
             } else {
                 setBoardWidth(viewPortWidth/2);
+                console.log("width set")
             }
         }, 100)
         
@@ -60,6 +62,8 @@ function HomePage() {
                 setBoardWidth(viewPortWidth/2);
             }
         };
+
+        console.log('before resize')
         
         const makeMove = (move) => {
             const gameCopy = game;
@@ -106,7 +110,7 @@ function HomePage() {
         }
         
             return (
-            <Chessboard id='b1' boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
+            <Chessboard boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
             )
     }
 
