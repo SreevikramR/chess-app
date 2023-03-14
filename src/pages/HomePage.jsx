@@ -7,6 +7,7 @@ import { Chessboard } from 'react-chessboard'
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
 
 function HomePage() {
+    const [boardWidth, setBoardWidth] = useState();
 
     var viewPortWidth = window.innerWidth;
     var viewPortHeight = window.innerHeight;
@@ -27,7 +28,6 @@ function HomePage() {
     const ShowBoard = () => {
         const [game, setGame] = useState(new Chess());
         const [position, setPosition] = useState();
-        const [boardWidth, setBoardWidth] = useState();
         const openingList = getOpenings();
         let moveSequence = [];
         let randomOpeningIndex;
