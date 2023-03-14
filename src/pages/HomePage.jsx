@@ -7,25 +7,13 @@ import { Chessboard } from 'react-chessboard'
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
 
 function HomePage() {
-    const [boardWidth, setBoardWidth] = useState();
-
     var viewPortWidth = window.innerWidth;
     var viewPortHeight = window.innerHeight;
     
-    let isHomePage = true;  
-
-    window.setTimeout(function(){
-        viewPortWidth = window.innerWidth;
-        viewPortHeight = window.innerHeight;
-        
-        if(viewPortWidth/2 > 500){
-            setBoardWidth(500);
-        } else {
-            setBoardWidth(viewPortWidth/2);
-        }
-    }, 100)
+    let isHomePage = true;
 
     const ShowBoard = () => {
+        const [boardWidth, setBoardWidth] = useState(500);
         const [game, setGame] = useState(new Chess());
         const [position, setPosition] = useState();
         const openingList = getOpenings();
@@ -36,7 +24,7 @@ function HomePage() {
         let openingVariationIndex;	
     
         viewPortWidth = window.innerWidth;
-        viewPortHeight = window.innerHeight;        
+        viewPortHeight = window.innerHeight;
         
         window.addEventListener('load', function() { 
             viewPortWidth = window.innerWidth;
@@ -107,7 +95,7 @@ function HomePage() {
         }
         
             return (
-            <Chessboard boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
+            <Chessboard id='b1' boardWidth={boardWidth} position={position} isDraggablePiece={isDraggable} animationDuration={750}/>
             )
     }
 
