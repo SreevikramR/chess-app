@@ -1,7 +1,5 @@
 import data from '../Data/openings.json';
 
-let lastRetreivedLine = "";
-
 const ruyLopezLines = ["Alapin Defense", "Cozio Defense", "Schliemann Defense"];
 
 export function getLines(openingName) {
@@ -11,7 +9,6 @@ export function getLines(openingName) {
 
 export function getMoveSequence(opening, openingLine) {
     const line = data.Openings[opening]['lines'][openingLine]
-    lastRetreivedLine = openingLine;
     return line;
 }
 

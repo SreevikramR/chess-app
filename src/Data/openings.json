@@ -6,7 +6,7 @@
                     "lines" : {
                         "Alapin Defense" : ["e4", "e5", "Nf3", "Nc6", "Bb5", "Bb4", "c3", "Ba5", "Bxc6", "dxc6"],
                         "Cozio Defense" : ["e4", "e5", "Nf3", "Nc6", "Bb5", "g6", "d4", "exd4", "Nxd4", "Bg7", "Be3", "Nge7", "Nc3", "O-O", "Qd2", "d5"],
-                        "Schliemann Defense" : ["e4", "e5", "Nf3", "Nc6", "Bb5", "f5", "Nc3", "fxe4", "Nxe4", "d5", "Nxe5", "dxe4",  "Nxc6", "Qg5", "Ne5"]
+                        "Schliemann Defense" : ["e4", "e5", "Nf3", "Nc6", "Bb5", "f5", "Nc3", "fxe4", "Nxe4", "d5", "Nxe5", "dxe4",  "Nxc6", "Qg5", "Ne5+"]
                     }
                 }
             }

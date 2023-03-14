@@ -1,17 +1,24 @@
 import './BoardPage.css'
 import navigateTo from "../components/NavigationManager"
-import { getLineIndex, getAlternateLine } from "../components/MoveRetreival"
+import { getLineIndex, getAlternateLine, getMoveSequence } from "../components/MoveRetreival"
 import { useState, useEffect } from 'react'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import MoveSelector from '../components/MoveSelector'
+import close from '../assets/close.png'
+import correct from '../assets/correct.png'
 
 let openeingName = 'Ruy Lopez';
-let openeingLine = 'Cozio Defense';
+let openingLine = 'Cozio Defense';
+let movePlayed;
+let moveMessage;
+let moveSequence = [];
+let image;
 
 function BoardPage() {
 
-    let openeingLineIndex = getLineIndex(openeingName, openeingLine);
+    let openingLineIndex = getLineIndex(openeingName, openingLine);
+    moveSequence = getMoveSequence(openeingName, openingLine);
 
     const [game, setGame] = useState(new Chess());
     const [position, setPosition] = useState();
@@ -46,6 +53,8 @@ function BoardPage() {
     }, false);
 
     const makeMove = (move) => {
+        const gameBackup = game;
+        gameBackup.loadPgn(game.pgn())
         const gameCopy = game;
         gameCopy.loadPgn(game.pgn());
         gameCopy.move(move);
@@ -53,12 +62,43 @@ function BoardPage() {
         setPosition(game.fen())
 
         moveHistory = gameCopy.history();
-        console.log(openeingLineIndex);
-        nextMove = MoveSelector(moveHistory, openeingName, openeingLineIndex)
+        console.log("last move played: " + moveHistory[moveHistory.length - 1])
+        nextMove = MoveSelector(moveHistory, openeingName, openingLineIndex)
+        console.log(nextMove)
 
-        setTimeout(() => {
-            playMove(nextMove)
-        }, 250);
+        if(nextMove === "invalid"){
+            moveMessage = " is not the correct move"
+            image = close
+            movePlayed = moveHistory[moveHistory.length - 1]
+            setTimeout(() =>  {
+                game.undo();
+                setGame(gameBackup)
+                setPosition(gameBackup.fen());
+            }, 100)
+            
+        } else if(nextMove == null){
+            moveMessage = "Opening Complete!"
+            image = correct
+            movePlayed = ""
+            console.log("move sequence complete")
+        } else {
+            setTimeout(() => {
+                moveMessage = " is the correct move!"
+                image = correct
+                movePlayed = moveHistory[moveHistory.length - 1]
+
+
+                if(moveHistory.length === moveSequence.length - 1){
+                    image = correct
+                    moveMessage = "Opening Complete!"
+                    movePlayed = ""
+                    console.log("move sequence complete")
+                }
+
+
+                playMove(nextMove)
+            }, 250);
+        }
     }
 
     const playMove = (nextMove) => {
@@ -89,25 +129,35 @@ function BoardPage() {
 
     function changeLine(){
         let gameCopy = new Chess();
-        openeingLine = getAlternateLine(openeingName, openeingLine);
-        openeingLineIndex = getLineIndex(openeingName, openeingLine);
+        openingLine = getAlternateLine(openeingName, openingLine);
+        openingLineIndex = getLineIndex(openeingName, openingLine);
+        moveSequence = getMoveSequence(openeingName, openingLine[openingLineIndex]);
         setGame(gameCopy);
         setPosition(gameCopy.fen());
         moveHistory = []
     }
 
     return(
-        <div className="row">
-            <div className="hc1">
-                <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} isDraggablePiece={isDraggable} animationDuration={750}/>
+        <>
+            <div className="row">
+                <div className="hc1">
+                    <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} isDraggablePiece={isDraggable} animationDuration={750}/>
+                </div>
+                <div className="hc2">
+                    <div className="box">
+                        <h1>{openeingName}</h1>
+                        <h2>{openingLine}</h2>
+                    </div>
+                    <img src={image}/>
+                    <h3>{movePlayed}{moveMessage}</h3>
+                </div>
             </div>
-            <div className="hc2">
-				<h1>{openeingName}</h1>
-                <h2>{openeingLine}</h2>
-                <button onClick={onClick}>Back</button>
-                <button onClick={changeLine}>Try a different line!</button>
+            <div className='navigationButtons'>
+                    <button onClick={onClick}>Back</button>
+                    <button onClick={changeLine}>Try a different line!</button>
             </div>
-        </div>
+        </>
+        
     )
 }
 

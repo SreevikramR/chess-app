@@ -3,7 +3,6 @@ import { getLines, getMoveSequence } from './MoveRetreival.jsx'
 const MoveSelector = (moveHistory, openingName, lineIndex) => {
 
 	const openingLines = getLines(openingName)
-	console.log(openingLines)
 
 	var moveSequence = []
 	moveSequence = getMoveSequence(openingName, openingLines[lineIndex])
@@ -12,12 +11,16 @@ const MoveSelector = (moveHistory, openingName, lineIndex) => {
   	var i = 0;
   	var j = moveHistory.length;
 
+	if(moveSequence.length + 1 == moveHistory.length){
+		return null
+	}
+
 	for(i=moveHistory.length - 1; i < moveHistory.length; i++){
 		if(moveHistory[i] !== moveSequence[i]){
-		console.log("moveHistory: " + moveHistory[i] + ", moveSequence: " + moveSequence[i]);
-		break
+		//console.log("moveHistory: " + moveHistory[i] + ", moveSequence: " + moveSequence[i]);
+		return "invalid"
 		} else {
-		console.log("Next move: " + moveSequence[j]);
+		// console.log("Next move: " + moveSequence[j]);
 		return moveSequence[j]
 		}
 	}
