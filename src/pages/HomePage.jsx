@@ -25,6 +25,17 @@ function HomePage() {
     
         viewPortWidth = window.innerWidth;
         viewPortHeight = window.innerHeight;
+
+        window.setTimeout(function(){
+            viewPortWidth = window.innerWidth;
+            viewPortHeight = window.innerHeight;
+            
+            if(viewPortWidth/2 > 500){
+                setBoardWidth(500);
+            } else {
+                setBoardWidth(viewPortWidth/2);
+            }
+        }, 100)
         
         window.addEventListener('load', function() { 
             viewPortWidth = window.innerWidth;
