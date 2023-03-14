@@ -1,7 +1,7 @@
 import React from "react"
 import './HomePage.css'
 import { Link } from "react-router-dom"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
@@ -37,9 +37,9 @@ function HomePage() {
                 setBoardWidth(viewPortWidth/2);
                 console.log("width set")
             }
-        }, 10)
+        }, 100)
         
-        window.addEventListener('load', function() { 
+        useEffect(() => {
             viewPortWidth = window.innerWidth;
             viewPortHeight = window.innerHeight;
         
@@ -49,7 +49,7 @@ function HomePage() {
                 setBoardWidth(viewPortWidth/2);
             }
             playMoves();
-        }, false);
+        }, [])
         
         window.onresize = function() {
             console.log("window resized")
@@ -76,7 +76,6 @@ function HomePage() {
         
         const isDraggable = (piece, sourceSquare) => {return false}
         
-        playMoves()
         async function playMoves(){
             const gameCopy = new Chess();
             game.loadPgn(gameCopy.pgn())
