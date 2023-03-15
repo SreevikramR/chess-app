@@ -1,4 +1,4 @@
-import './BoardPage.css'
+import './styles/BoardPage.css'
 import navigateTo from "../components/NavigationManager"
 import { getLineIndex, getAlternateLine, getMoveSequence } from "../components/MoveRetreival"
 import { useState, useEffect } from 'react'
@@ -17,7 +17,7 @@ let image;
 let moveHistory = [];
 let indexid = 'ti0';
 
-function BoardPage() {
+function TrialPage() {
 
     var viewPortWidth = window.innerWidth;
     var viewPortHeight = window.innerHeight;
@@ -44,7 +44,6 @@ function BoardPage() {
     viewPortHeight = window.innerHeight;
 
     window.onresize = function() {
-        console.log("window resized")
         viewPortWidth = window.innerWidth;
         viewPortHeight = window.innerHeight;
         
@@ -94,6 +93,12 @@ function BoardPage() {
             }, 100)
             
         } else if(nextMove == null){
+            document.getElementById(indexid).className = '';
+            moveMessage = " is the correct move!"
+            indexid = 'ti' + (moveHistory.length - 1);
+            document.getElementById(indexid).classList.add('correctMove');
+            image = correct
+            movePlayed = moveHistory[moveHistory.length - 1]
             moveMessage = "Opening Complete!"
             image = correct
             movePlayed = ""
@@ -229,4 +234,4 @@ function BoardPage() {
     )
 }
 
-export default BoardPage
+export default TrialPage

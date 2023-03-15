@@ -1,13 +1,21 @@
 const home = '/'
-const boardPage = '/board'
+const trialPage = '/try_now'
+const loginPage = '/login'
+const registerPage = '/register'
 
 function navigateTo(location) {
     switch (location) {
         case 'home':
             window.location.href=home
             break;
-        case 'boardPage':
-            window.location.href=boardPage
+        case 'try_now':
+            window.location.href=trialPage
+            break;
+        case 'login':
+            window.location.href=loginPage
+            break;
+        case 'register':
+            window.location.href=registerPage
             break;
         default:
             break;

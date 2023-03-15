@@ -1,5 +1,5 @@
 import React from "react"
-import './HomePage.css'
+import './styles/HomePage.css'
 import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { Chess } from 'chess.js'
@@ -9,12 +9,13 @@ import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetrei
 function HomePage() {
     var viewPortWidth = window.innerWidth;
     var viewPortHeight = window.innerHeight;
+
+    console.log(process.env.FIREBASE_API)
     
     let isHomePage = true;
 
     const ShowBoard = () => {
-        console.log("Showboard run")
-        const [boardWidth, setBoardWidth] = useState(500);
+        const [boardWidth, setBoardWidth] = useState(450);
         const [game, setGame] = useState(new Chess());
         const [position, setPosition] = useState();
         const openingList = getOpenings();
@@ -31,11 +32,10 @@ function HomePage() {
             viewPortWidth = window.innerWidth;
             viewPortHeight = window.innerHeight;
             
-            if(viewPortWidth/2 > 500){
-                setBoardWidth(500);
+            if(viewPortWidth/2 > 450){
+                setBoardWidth(450);
             } else {
-                setBoardWidth(viewPortWidth/2);
-                console.log("width set")
+                setBoardWidth(viewPortWidth/2.5);
             }
         }, 100)
         
@@ -43,10 +43,10 @@ function HomePage() {
             viewPortWidth = window.innerWidth;
             viewPortHeight = window.innerHeight;
         
-            if(viewPortWidth/2 > 500){
-                setBoardWidth(500);
+            if(viewPortWidth/2 > 450){
+                setBoardWidth(450);
             } else {
-                setBoardWidth(viewPortWidth/2);
+                setBoardWidth(viewPortWidth/2.5);
             }
             playMoves();
         }, [])
@@ -56,14 +56,12 @@ function HomePage() {
             viewPortWidth = window.innerWidth;
             viewPortHeight = window.innerHeight;
             
-            if(viewPortWidth/2 > 500){
-                setBoardWidth(500);
+            if(viewPortWidth/2 > 450){
+                setBoardWidth(450);
             } else {
-                setBoardWidth(viewPortWidth/2);
+                setBoardWidth(viewPortWidth/2.5);
             }
         };
-
-        console.log('before resize')
         
         const makeMove = (move) => {
             const gameCopy = game;
@@ -71,7 +69,7 @@ function HomePage() {
             gameCopy.move(move);
             setGame(gameCopy);
             setPosition(game.fen());
-            console.log(game.pgn());
+            //console.log(game.pgn());
         }
         
         const isDraggable = (piece, sourceSquare) => {return false}
@@ -121,20 +119,41 @@ function HomePage() {
     }
 
     return(
-        <div>
-            <h1> Chess Openings </h1>
-            <div className='row'>
-			    <div className='hc1'>
-				    <ShowBoard/>
-                    
-			    </div>
-			    <div className='hc2'>
-				    <Link to='/board'>
-                        <button onClick={homePageFalse}>Try now!</button>
+        <>
+            <div className="navbar">
+                <div className="leftAlign">
+                    <h4>Chess Openings</h4>
+                </div>
+                <div className="rightAlign">
+                    <div className="textSplitter">
+                        <Link to="/login" style={{ textDecoration: 'none' }}>
+                            <div className="navBarText">Login</div>
+                        </Link>
+                    </div>
+                    <div className="textSplitter">
+                        <Link to='/register' style={{ textDecoration: 'none' }}>
+                            <div className="navBarText">Register</div>
+                        </Link>
+                    </div>
+                    <Link to='/try_now'>
+                        <button className="navBarButton">Try Now!</button>
                     </Link>
-			    </div>
-    	    </div>  
-        </div>
+                </div>
+            </div>
+            <div>
+                <div className='row'>
+                    <div className='hc1'>
+                        <ShowBoard/>
+                    </div>
+                    <div className='hc2'>
+                        <h1 className="title"><mark className="headingMarker">Crush</mark> your opponents with <mark className="headingMarker">flawless</mark> openings</h1>
+                        <Link to='/try_now'>
+                            <button onClick={homePageFalse} className="tryNowButton">Try now!</button>
+                        </Link>
+                    </div>
+                </div>  
+            </div>
+        </>
     )
 }
 

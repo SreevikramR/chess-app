@@ -89,6 +89,7 @@ table {
     width: 75%;
     margin-left: 5vw;
     color: white;
+    font-weight: bold;
 }
 
 th {
@@ -110,9 +111,9 @@ td {
 }
 
 .wrongMove {
-    background-color: rgb(243, 42, 42);
+    color: rgb(243, 42, 42);
 }
 
 .correctMove {
-    background-color: #20e31c;
+    color: #20e31c;
 }

@@ -1,0 +1,133 @@
+h1 {
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    font-size: 10vw;
+    margin: 0;
+	padding: 1.5vw;
+    margin-bottom: 1vw;
+	border: 0;
+}
+
+.hc1{
+    width: 50%;
+    float: left;
+}
+
+.hc2{
+    width: 50%;
+    float: right;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.row {
+    margin-top: 0;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+.tryNowButton {
+    border-radius: 2vh;
+    border: 0.5vh solid transparent;
+    font-size: 2.75vh;
+    font-weight: 500;
+    padding: 1.2vh;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    font-family: inherit;
+    background-color: #576CE8;
+    margin-top: 1.5vh;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: white;
+    font-weight: 650;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.tryNowButton:hover {
+    border-color: white;
+}
+
+.navbar {
+    height: 10vh;
+    background-color: rgb(20, 20, 20);
+    margin-bottom: 1vh;
+    border-bottom: 0.15vh solid rgb(56, 56, 56);
+}
+
+h4 {
+    color: white;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 5vh;
+    font-weight: bold;
+}
+
+.leftAlign {
+    text-align: left;
+    padding: 2.25vh;
+    width: fit-content;
+    float: left;
+}
+
+.rightAlign {
+    text-align: right;
+    width: fit-content;
+    float: right;
+    display: flex;
+}
+
+.navBarButton {
+    border-radius: 2vh;
+    border: 0.5vh solid transparent;
+    font-size: 2.75vh;
+    font-weight: 500;
+    padding: 1.2vh;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    font-family: inherit;
+    background-color: #576CE8;
+    margin-top: 1.5vh;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: white;
+    font-weight: 650;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.navBarButton:hover {
+    border-color: white;
+}
+
+.navBarText {
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 3.25vh;
+    color: white;
+    margin-top: 2vh;
+    padding: 1.2vh;
+    margin-right: 0.5vh;
+    border-left: 0.15vh solid rgb(56, 56, 56);
+}
+
+.navBarText:hover {
+    color:#576CE8;
+}
+
+.headingMarker {
+    background: none;
+    color: #576CE8;
+}
+
+.title {
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    font-size: 5vw;
+    margin: 0;
+	padding: 1.5vw;
+    margin-bottom: 1vw;
+    margin-top: 5vh;
+	border: 0;
+}
