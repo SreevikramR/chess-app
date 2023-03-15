@@ -1,5 +1,4 @@
 import './styles/BoardPage.css'
-import navigateTo from "../components/NavigationManager"
 import { getLineIndex, getAlternateLine, getMoveSequence } from "../components/MoveRetreival"
 import { useState, useEffect } from 'react'
 import { Chess } from 'chess.js'
@@ -7,6 +6,7 @@ import { Chessboard } from 'react-chessboard'
 import MoveSelector from '../components/MoveSelector'
 import close from '../assets/close.png'
 import correct from '../assets/correct.png'
+import { Link } from 'react-router-dom'
 
 let openeingName = 'Ruy Lopez';
 let openingLine = 'Cozio Defense';
@@ -149,10 +149,6 @@ function TrialPage() {
         } else return false
     }
 
-    function onClick(){
-        navigateTo('home')
-    }
-
     function changeLine(){
         let gameCopy = new Chess();
         openingLine = getAlternateLine(openeingName, openingLine);
@@ -166,6 +162,28 @@ function TrialPage() {
 
     return(
         <>
+            <div className="navbar">
+                <div className="leftAlign">
+                    <Link to={"/"} style={{textDecoration: 'none'}}>
+                        <h4>Chess Openings</h4>
+                    </Link>
+                </div>
+                <div className="rightAlign">
+                    <div className="textSplitter">
+                        <Link to="/login" style={{ textDecoration: 'none' }}>
+                            <div className="navBarText">Login</div>
+                        </Link>
+                    </div>
+                    <div className="textSplitter">
+                        <Link to='/register' style={{ textDecoration: 'none' }}>
+                            <div className="navBarText">Register</div>
+                        </Link>
+                    </div>
+                    <Link to='/try_now'>
+                        <button className="navBarButton">Try Now!</button>
+                    </Link>
+                </div>
+            </div>
             <div className="row">
                 <div className="hc1">
                     <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} isDraggablePiece={isDraggable} animationDuration={750}/>
@@ -226,8 +244,7 @@ function TrialPage() {
                 </div>
             </div>
             <div className='navigationButtons'>
-                    <button onClick={onClick}>Back</button>
-                    <button onClick={changeLine}>Try another line!</button>
+                <button onClick={changeLine}>Try another line!</button>
             </div>
         </>
         
