@@ -9,10 +9,9 @@ import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetrei
 function HomePage() {
     var viewPortWidth = window.innerWidth;
     var viewPortHeight = window.innerHeight;
-
-    console.log(process.env.FIREBASE_API)
     
     let isHomePage = true;
+    console.log(import.meta.env.VITE_FIREBASE_API)
 
     const ShowBoard = () => {
         const [boardWidth, setBoardWidth] = useState(450);
