@@ -35,7 +35,7 @@ button:hover {
 .row {
     padding-left: 5vw;
     padding-right: 5vw;
-    padding-top: 5vh;
+    padding-top: 1.5vh;
 }
 
 h1 {
@@ -45,7 +45,7 @@ h1 {
     margin: 0;
 	padding: 1.5vw;
     padding-top: 0;
-    padding-bottom: 2vw;
+    padding-bottom: 1.5vw;
     margin-bottom: 0vw;
     margin-top: 0;
 	border: 0;

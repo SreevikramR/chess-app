@@ -1,0 +1,85 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    height: 10vh;
+    background-color: rgb(20, 20, 20);
+    margin-bottom: 1vh;
+    border-bottom: 0.15vh solid rgb(56, 56, 56);
+    width: 100%;
+}
+
+.leftAlign {
+    text-align: left;
+    padding: 2.25vh;
+    width: fit-content;
+    float: left;
+}
+
+.rightAlign {
+    text-align: right;
+    width: fit-content;
+    float: right;
+    display: flex;
+}
+
+.navBarButton {
+    border-radius: 2vh;
+    border: 0.5vh solid transparent;
+    font-size: 2.75vh;
+    font-weight: 500;
+    padding: 1.2vh;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    font-family: inherit;
+    background-color: #576CE8;
+    margin-top: 1.5vh;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: white;
+    font-weight: 650;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.navBarButton:hover {
+    border-color: white;
+}
+
+.navBarText {
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 3.25vh;
+    color: white;
+    margin-top: 2vh;
+    padding: 1.2vh;
+    margin-right: 0.5vh;
+    border-left: 0.15vh solid rgb(56, 56, 56);
+}
+
+.navBarText:hover {
+    color:#576CE8;
+}
+
+.tryNowButton {
+    border-radius: 2vh;
+    border: 0.5vh solid transparent;
+    font-size: 2.75vh;
+    font-weight: 500;
+    padding: 1.2vh;
+    padding-right: 2vh;
+    padding-left: 2vh;
+    font-family: inherit;
+    background-color: #576CE8;
+    margin-top: 1.5vh;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    color: white;
+    font-weight: 650;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.tryNowButton:hover {
+    border-color: white;
+}
+
+.content {
+    margin-top: 11.5vh;
+}

@@ -1,4 +1,4 @@
-import './styles/BoardPage.css'
+import './styles/TrialPage.css'
 import { getLineIndex, getAlternateLine, getMoveSequence } from "../components/MoveRetreival"
 import { useState, useEffect } from 'react'
 import { Chess } from 'chess.js'
@@ -6,7 +6,8 @@ import { Chessboard } from 'react-chessboard'
 import MoveSelector from '../components/MoveSelector'
 import close from '../assets/close.png'
 import correct from '../assets/correct.png'
-import { Link } from 'react-router-dom'
+import Navbar from '../components/Navbar'
+import './styles/Navbar.css'
 
 let openeingName = 'Ruy Lopez';
 let openingLine = 'Cozio Defense';
@@ -54,16 +55,17 @@ function TrialPage() {
         }
     };
 
-    window.addEventListener('load', function() { 
+    useEffect(() => {
         viewPortWidth = window.innerWidth;
         viewPortHeight = window.innerHeight;
     
         if(viewPortWidth/2 > 500){
             setBoardWidth(500);
         } else {
-            setBoardWidth(viewPortWidth/2.2);
+            setBoardWidth(viewPortWidth/2.5);
         }
-    }, false);
+        moveHistory = []
+    }, [])
 
     const makeMove = (move) => {
         const gameBackup = game;
@@ -162,89 +164,70 @@ function TrialPage() {
 
     return(
         <>
-            <div className="navbar">
-                <div className="leftAlign">
-                    <Link to={"/"} style={{textDecoration: 'none'}}>
-                        <h4>Chess Openings</h4>
-                    </Link>
-                </div>
-                <div className="rightAlign">
-                    <div className="textSplitter">
-                        <Link to="/login" style={{ textDecoration: 'none' }}>
-                            <div className="navBarText">Login</div>
-                        </Link>
+            <Navbar/>
+            <div className='content'>
+                <div className="row">
+                    <div className="hc1">
+                        <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} isDraggablePiece={isDraggable} animationDuration={750}/>
                     </div>
-                    <div className="textSplitter">
-                        <Link to='/register' style={{ textDecoration: 'none' }}>
-                            <div className="navBarText">Register</div>
-                        </Link>
-                    </div>
-                    <Link to='/try_now'>
-                        <button className="navBarButton">Try Now!</button>
-                    </Link>
-                </div>
-            </div>
-            <div className="row">
-                <div className="hc1">
-                    <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} isDraggablePiece={isDraggable} animationDuration={750}/>
-                </div>
-                <div className="hc2">
-                    <h1>{openeingName}</h1>
-                    <table>
-                        <tr>
-                            <th colSpan={3}>
-                                <h2>{openingLine}</h2>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>1</td>
-                            <td id='ti0'>{moveHistory[0]}</td>
-                            <td id='ti1'>{moveHistory[1]}</td>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>2</td>
-                            <td id='ti2'>{moveHistory[2]}</td>
-                            <td id='ti3'>{moveHistory[3]}</td>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>3</td>
-                            <td id='ti4'>{moveHistory[4]}</td>
-                            <td id='ti5'>{moveHistory[5]}</td>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>4</td>
-                            <td id='ti6'>{moveHistory[6]}</td>
-                            <td id='ti7'>{moveHistory[7]}</td>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>5</td>
-                            <td id='ti8'>{moveHistory[8]}</td>
-                            <td id='ti9'>{moveHistory[9]}</td>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>6</td>
-                            <td id='ti10'>{moveHistory[10]}</td>
-                            <td id='ti11'>{moveHistory[11]}</td>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>7</td>
-                            <td id='ti12'>{moveHistory[12]}</td>
-                            <td id='ti13'>{moveHistory[13]}</td>
-                        </tr>
-                        <tr>
-                            <td className='indexNumber'>8</td>
-                            <td id='ti14'>{moveHistory[14]}</td>
-                            <td id='ti15'>{moveHistory[15]}</td>
-                        </tr>
-                    </table>
+                    <div className="hc2">
+                        <h1>{openeingName}</h1>
+                        <table>
+                            <tr>
+                                <th colSpan={3}>
+                                    <h2>{openingLine}</h2>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>1</td>
+                                <td id='ti0'>{moveHistory[0]}</td>
+                                <td id='ti1'>{moveHistory[1]}</td>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>2</td>
+                                <td id='ti2'>{moveHistory[2]}</td>
+                                <td id='ti3'>{moveHistory[3]}</td>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>3</td>
+                                <td id='ti4'>{moveHistory[4]}</td>
+                                <td id='ti5'>{moveHistory[5]}</td>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>4</td>
+                                <td id='ti6'>{moveHistory[6]}</td>
+                                <td id='ti7'>{moveHistory[7]}</td>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>5</td>
+                                <td id='ti8'>{moveHistory[8]}</td>
+                                <td id='ti9'>{moveHistory[9]}</td>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>6</td>
+                                <td id='ti10'>{moveHistory[10]}</td>
+                                <td id='ti11'>{moveHistory[11]}</td>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>7</td>
+                                <td id='ti12'>{moveHistory[12]}</td>
+                                <td id='ti13'>{moveHistory[13]}</td>
+                            </tr>
+                            <tr>
+                                <td className='indexNumber'>8</td>
+                                <td id='ti14'>{moveHistory[14]}</td>
+                                <td id='ti15'>{moveHistory[15]}</td>
+                            </tr>
+                        </table>
 
-                    {/* <img src={image}/>
-                    <h3>{movePlayed}{moveMessage}</h3> */}
-                
+                        {/* <img src={image}/>
+                        <h3>{movePlayed}{moveMessage}</h3> */}
+                    
+                    </div>
                 </div>
-            </div>
-            <div className='navigationButtons'>
-                <button onClick={changeLine}>Try another line!</button>
+                <div className='navigationButtons'>
+                    <button onClick={changeLine}>Try another line!</button>
+                </div>
             </div>
         </>
         
