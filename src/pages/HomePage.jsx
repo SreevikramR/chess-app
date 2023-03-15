@@ -4,12 +4,14 @@ import { Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
+import { auth } from "../firebase"
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
 import './styles/Navbar.css'
 
 function HomePage() {
     var viewPortWidth = window.innerWidth;
     var viewPortHeight = window.innerHeight;
+    const [username, setUsername] = useState('');
     
     let isHomePage = true;
     //console.log(import.meta.env.VITE_FIREBASE_API)
@@ -18,6 +20,7 @@ function HomePage() {
         const [boardWidth, setBoardWidth] = useState(450);
         const [game, setGame] = useState(new Chess());
         const [position, setPosition] = useState();
+        const [loggedIn, setLoggedIn] = useState(false);
         const openingList = getOpenings();
         let moveSequence = [];
         let randomOpeningIndex;
@@ -38,6 +41,17 @@ function HomePage() {
                 setBoardWidth(viewPortWidth/2.5);
             }
         }, 100)
+
+        useEffect(() => {
+            if(loggedIn){
+                setUsername(auth.currentUser.email)
+                document.getElementById("rightAlignNotLoggedIn").style.display = 'none'
+                document.getElementById("rightAlignLoggedIn").style.display = 'flex'
+            } else {
+                document.getElementById("rightAlignNotLoggedIn").style.display = 'flex'
+                document.getElementById("rightAlignLoggedIn").style.display = 'none'
+            }
+        }, [loggedIn])
         
         useEffect(() => {
             viewPortWidth = window.innerWidth;
@@ -48,6 +62,15 @@ function HomePage() {
             } else {
                 setBoardWidth(viewPortWidth/2.5);
             }
+
+            const user = auth.currentUser
+            if(user == null) {
+                setLoggedIn(false)
+            } else {
+                setUsername(auth.currentUser.email)
+                setLoggedIn(true)
+            }
+
             playMoves();
         }, [])
         
@@ -124,7 +147,7 @@ function HomePage() {
                 <div className="leftAlign">
                     <h4>Chess Openings</h4>
                 </div>
-                <div className="rightAlign">
+                <div className="rightAlignNotLoggedIn" id="rightAlignNotLoggedIn">
                     <div className="textSplitter">
                         <Link to="/login" style={{ textDecoration: 'none' }} onClick={homePageFalse}>
                             <div className="navBarText">Login</div>
@@ -137,6 +160,16 @@ function HomePage() {
                     </div>
                     <Link to='/try_now'>
                         <button className="navBarButton" onClick={homePageFalse}>Try Now!</button>
+                    </Link>
+                </div>
+                <div className="rightAlignLoggedIn" id="rightAlignLoggedIn">
+                    <div className="textSplitter">
+                        <Link to="/dashboard" style={{ textDecoration: 'none' }} onClick={homePageFalse}>
+                            <div className="navBarText">Hi {username}</div>
+                        </Link>
+                    </div>
+                    <Link to='/dashboard'>
+                        <button className="navBarButton" onClick={homePageFalse}>Dashboard</button>
                     </Link>
                 </div>
             </div>

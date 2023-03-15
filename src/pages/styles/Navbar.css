@@ -22,6 +22,20 @@
     display: flex;
 }
 
+.rightAlignNotLoggedIn {
+    text-align: right;
+    width: fit-content;
+    float: right;
+    display: flex;
+}
+
+.rightAlignLoggedIn {
+    text-align: right;
+    width: fit-content;
+    float: right;
+    display: none;
+}
+
 .navBarButton {
     border-radius: 2vh;
     border: 0.5vh solid transparent;
