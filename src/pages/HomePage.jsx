@@ -11,7 +11,7 @@ function HomePage() {
     var viewPortHeight = window.innerHeight;
     
     let isHomePage = true;
-    console.log(import.meta.env.VITE_FIREBASE_API)
+    //console.log(import.meta.env.VITE_FIREBASE_API)
 
     const ShowBoard = () => {
         const [boardWidth, setBoardWidth] = useState(450);
