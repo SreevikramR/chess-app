@@ -1,7 +1,8 @@
 import './styles/RegisterPage.css'
 import React, {useState} from 'react'
 import { createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, browserSessionPersistence } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
+import { doc, setDoc } from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar'
 import './styles/Navbar.css'
@@ -16,17 +17,46 @@ const RegisterPage = () => {
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    let uid;
 
     const handleSubmit = async (e) => {
+        setLoading(true)
         e.preventDefault()
         if(password !== passwordConfirm) {
             document.getElementById("errorBox").style.display = 'block'
             setErrorMessage("Passwords don't match")
+            setLoading(false)
+        } else if(firstName === '') {
+            document.getElementById("errorBox").style.display = 'block'
+            setErrorMessage("Please enter a valid name")
+            setLoading(false)
+        } else if(lastName === '') {
+            document.getElementById("errorBox").style.display = 'block'
+            setErrorMessage("Please enter a valid name")
+            setLoading(false)
+        } else if(userName === '') {
+            document.getElementById("errorBox").style.display = 'block'
+            setErrorMessage("Please enter a valid username")
+            setLoading(false)
+        } else if(password === '') {
+            document.getElementById("errorBox").style.display = 'block'
+            setErrorMessage("Please enter a password")
+            setLoading(false)
         } else {
             try{
                 await setPersistence(auth, browserSessionPersistence).then(() =>
                     createUserWithEmailAndPassword(auth, email, password))
                 console.log("user: " + auth.currentUser)
+                uid = auth.currentUser.uid
+                console.log("user uid: " + uid)
+                await setDoc(doc(db, "users", uid), {
+                    fName: firstName,
+                    lName: lastName,
+                    uid: uid,
+                    username: userName
+                })
                 navigate('/dashboard')
             } catch (error) {
                 document.getElementById("errorBox").style.display = 'block'
@@ -50,9 +80,10 @@ const RegisterPage = () => {
                         setErrorMessage("Please enter a longer password")
                         break
                     default:
-                        setErrorMessage("Code: " + error.code)
+                        setErrorMessage("Error code: " + error.code)
                         break
                 }
+                setLoading(false)
                 console.log(error.code);
             }
         }
@@ -84,7 +115,7 @@ const RegisterPage = () => {
                     <input type='password' placeholder='**********' id='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
                     <label>Password Confirmation</label>
                     <input type='password' placeholder='**********' id='passwordConfirm' value={passwordConfirm} onChange={(e) => setPasswordConfirm(e.target.value)}/>
-                    <button onClick={handleSubmit} type='submit' className='submitButton'>Register!</button>
+                    <button onClick={handleSubmit} type='submit' className='submitButton' disabled={loading}>Register!</button>
                 </form>
             </div>
         </div>
