@@ -29,7 +29,7 @@ export function getAlternateLine(openingName, currentLine){
     switch(openingName){
         case 'Ruy Lopez':
             while(foundLine === false){
-                console.log("finding")
+                //console.log("finding")
                 let index = Math.round(randomNumber(ruyLopezLines.length - 1));
                 if(ruyLopezLines[index] != currentLine){
                     return ruyLopezLines[index]

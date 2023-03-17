@@ -77,14 +77,15 @@ function TrialPage() {
         setPosition(game.fen())
 
         moveHistory = gameCopy.history();
-        console.log("last move played: " + moveHistory[moveHistory.length - 1])
+        //console.log("last move played: " + moveHistory[moveHistory.length - 1])
         nextMove = MoveSelector(moveHistory, openeingName, openingLineIndex)
-        console.log(nextMove)
+        //console.log(nextMove)
 
         if(nextMove === "invalid"){
-            document.getElementById(indexid).className = '';
             moveMessage = " is not the correct move"
             indexid = 'ti' + (moveHistory.length - 1);
+            console.log(indexid)
+            document.getElementById(indexid).className = '';
             document.getElementById(indexid).classList.add('wrongMove');
             image = close
             movePlayed = moveHistory[moveHistory.length - 1]
@@ -95,7 +96,6 @@ function TrialPage() {
             }, 100)
             
         } else if(nextMove == null){
-            document.getElementById(indexid).className = '';
             moveMessage = " is the correct move!"
             indexid = 'ti' + (moveHistory.length - 1);
             document.getElementById(indexid).classList.add('correctMove');
@@ -104,10 +104,9 @@ function TrialPage() {
             moveMessage = "Opening Complete!"
             image = correct
             movePlayed = ""
-            console.log("move sequence complete")
+            //console.log("move sequence complete")
         } else {
             setTimeout(() => {
-                document.getElementById(indexid).className = '';
                 moveMessage = " is the correct move!"
                 indexid = 'ti' + (moveHistory.length - 1);
                 document.getElementById(indexid).classList.add('correctMove');
@@ -119,13 +118,14 @@ function TrialPage() {
                     image = correct
                     moveMessage = "Opening Complete!"
                     movePlayed = ""
-                    console.log("move sequence complete")
+                    //console.log("move sequence complete")
                 }
 
 
                 playMove(nextMove)
             }, 250);
         }
+        console.log(moveMessage)
     }
 
     const playMove = (nextMove) => {

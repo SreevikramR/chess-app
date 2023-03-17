@@ -7,7 +7,7 @@ const MoveSelector = (moveHistory, openingName, lineIndex) => {
 	var moveSequence = []
 	moveSequence = getMoveSequence(openingName, openingLines[lineIndex])
 
-  	console.log(moveHistory);
+  	//console.log(moveHistory);
   	var i = 0;
   	var j = moveHistory.length;
 

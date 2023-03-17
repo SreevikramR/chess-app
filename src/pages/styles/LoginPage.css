@@ -41,3 +41,16 @@ h1 {
 .submitButton:hover {
     border-color: white;
 }
+
+.registerButton {
+    padding-left: 0;
+}
+
+.otherActions {
+    flex-direction: row;
+    margin-top: 3vh;
+}
+
+.forgotPassword {
+    padding-left: 15vw;
+}

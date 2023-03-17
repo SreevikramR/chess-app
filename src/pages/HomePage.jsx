@@ -7,6 +7,7 @@ import { Chessboard } from 'react-chessboard'
 import { auth } from "../firebase"
 import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
 import './styles/Navbar.css'
+import { getfName } from "../components/FSAcess"
 
 function HomePage() {
     var viewPortWidth = window.innerWidth;
@@ -42,9 +43,14 @@ function HomePage() {
             }
         }, 100)
 
+        async function setData() {
+            const data = (await getfName())
+            setUsername(data)
+        }
+
         useEffect(() => {
             if(loggedIn){
-                setUsername(auth.currentUser.email)
+                setData()
                 document.getElementById("rightAlignNotLoggedIn").style.display = 'none'
                 document.getElementById("rightAlignLoggedIn").style.display = 'flex'
             } else {
@@ -67,7 +73,7 @@ function HomePage() {
             if(user == null) {
                 setLoggedIn(false)
             } else {
-                setUsername(auth.currentUser.email)
+                setData()
                 setLoggedIn(true)
             }
 

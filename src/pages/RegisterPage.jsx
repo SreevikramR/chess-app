@@ -1,6 +1,6 @@
 import './styles/RegisterPage.css'
-import React, {useState} from 'react'
-import { createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, browserSessionPersistence } from 'firebase/auth'
+import React, {useState, useEffect} from 'react'
+import { createUserWithEmailAndPassword, setPersistence, browserSessionPersistence, updateProfile } from 'firebase/auth'
 import { auth, db } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
@@ -18,8 +18,24 @@ const RegisterPage = () => {
     const [userName, setUserName] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
     let uid;
+
+    useEffect(() => {
+        if(loggedIn){
+            navigate('/dashboard')
+        }
+    }, [loggedIn])
+    
+    useEffect(() => {
+        const user = auth.currentUser
+        if(user == null) {
+            setLoggedIn(false)
+        } else {
+            setLoggedIn(true)
+        }
+    }, [])
 
     const handleSubmit = async (e) => {
         setLoading(true)
@@ -51,6 +67,9 @@ const RegisterPage = () => {
                 console.log("user: " + auth.currentUser)
                 uid = auth.currentUser.uid
                 console.log("user uid: " + uid)
+                await updateProfile(auth.currentUser, {
+                    displayName: firstName
+                })
                 await setDoc(doc(db, "users", uid), {
                     fName: firstName,
                     lName: lastName,

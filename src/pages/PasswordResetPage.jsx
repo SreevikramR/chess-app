@@ -1,41 +1,31 @@
 import './styles/LoginPage.css'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { auth } from '../firebase'
-import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth'
+import { sendPasswordResetEmail } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 import './styles/Navbar.css'
 import Navbar from '../components/Navbar'
 
-const LoginPage = () => {
+const PasswordResetPage = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if(loggedIn){
-            navigate('/dashboard')
-        }
-    }, [loggedIn])
-    
-    useEffect(() => {
-        const user = auth.currentUser
-        if(user == null) {
-            setLoggedIn(false)
-        } else {
-            setLoggedIn(true)
-        }
-    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try{
-            await setPersistence(auth, browserSessionPersistence).then(() => signInWithEmailAndPassword(auth, email, password))
-            navigate('/dashboard')
+            setLoading(true);
+            await sendPasswordResetEmail(auth, email)
+            console.log("password reset email sent")
+            document.getElementById("errorBox").style.backgroundColor = 'green'
+            setErrorMessage("Reset Email sent!")
+            //navigate('/dashboard')
+            setLoading(false)
         } catch (error) {
             document.getElementById("errorBox").style.display = 'block'
+            document.getElementById("errorBox").style.backgroundColor = 'rgba(255, 25, 25, 0.753)'
             switch(error.code){
                 case "auth/user-not-found":
                     setErrorMessage("No Account found, try making one!")
@@ -46,8 +36,8 @@ const LoginPage = () => {
                 case "auth/invalid-email":
                     setErrorMessage("Please enter a valid email")
                     break
-                case "auth/invalid-password":
-                    setErrorMessage("Please enter a valid password")
+                case "auth/missing-email":
+                    setErrorMessage("Please enter a valid email")
                     break
                 case "auth/wrong-password":
                     setErrorMessage("Username/password is incorrect")
@@ -59,6 +49,7 @@ const LoginPage = () => {
                     setErrorMessage("Code: " + error.code)
                     break
             }
+            setLoading(false)
             console.log(error.message);
         }
     }
@@ -72,16 +63,14 @@ const LoginPage = () => {
                 <form>
                     <label>Email</label>
                     <input type='email' placeholder='name@mail.com' id='email' value={email} onChange={(e) => setEmail(e.target.value)}/>
-                    <label>Password</label>
-                    <input type='password' placeholder='**********' id='password' value={password} onChange={(e) => setPassword(e.target.value)}/>
-                    <button onClick={handleSubmit} type='submit' className='submitButton'>Login!</button>
+                    <button onClick={handleSubmit} type='submit' className='submitButton' disabled={loading}>Reset Password</button>
                 </form>
                 <div className='otherActions'>
                     <Link to='/register' style={{textDecoration: 'none'}}>
                         <label className='registerButton'>Register</label>
                     </Link>
-                    <Link to='/reset' style={{textDecoration: 'none'}}>
-                        <label className='forgotPassword'>Forgot Password?</label>
+                    <Link to='/login' style={{textDecoration: 'none'}}>
+                        <label className='forgotPassword'>Login</label>
                     </Link>
                 </div>
             </div>
@@ -89,4 +78,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default PasswordResetPage

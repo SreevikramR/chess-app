@@ -5,6 +5,7 @@ import TrialPage from './pages/TrialPage'
 import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
+import PasswordResetPage from './pages/PasswordResetPage'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
 			<Route path="/register" element={<RegisterPage/>}/>
 			<Route path="/login" element={<LoginPage/>}/>
 			<Route path='/dashboard' element={<Dashboard/>}/>
+			<Route path='/reset' element={<PasswordResetPage/>}/>
 		</Routes>
 	)
 }
