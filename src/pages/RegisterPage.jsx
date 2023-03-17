@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, setPersistence, browserSessionPersisten
 import { auth, db } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
+import { checkUsernameExists, addUsername, createUser } from '../components/FSAcess'
 import Navbar from '../components/Navbar'
 import './styles/Navbar.css'
 
@@ -61,49 +62,53 @@ const RegisterPage = () => {
             setErrorMessage("Please enter a password")
             setLoading(false)
         } else {
-            try{
-                await setPersistence(auth, browserSessionPersistence).then(() =>
-                    createUserWithEmailAndPassword(auth, email, password))
-                console.log("user: " + auth.currentUser)
-                uid = auth.currentUser.uid
-                console.log("user uid: " + uid)
-                await updateProfile(auth.currentUser, {
-                    displayName: firstName
-                })
-                await setDoc(doc(db, "users", uid), {
-                    fName: firstName,
-                    lName: lastName,
-                    uid: uid,
-                    username: userName
-                })
-                navigate('/dashboard')
-            } catch (error) {
+            const doesExist = await checkUsernameExists(userName)
+            if (doesExist) {
                 document.getElementById("errorBox").style.display = 'block'
-                switch(error.code){
-                    case "auth/email-already-exists":
-                        setErrorMessage("Account with Email already exists")
-                        break
-                    case "auth/missing-email":
-                        setErrorMessage("Please enter an email")
-                        break
-                    case "auth/internal-error":
-                        setErrorMessage("Server Error: Please try again later")
-                        break
-                    case "auth/invalid-email":
-                        setErrorMessage("Please enter a valid email")
-                        break
-                    case "auth/invalid-password":
-                        setErrorMessage("Please enter a valid password")
-                        break
-                    case "auth/weak-password":
-                        setErrorMessage("Please enter a longer password")
-                        break
-                    default:
-                        setErrorMessage("Error code: " + error.code)
-                        break
-                }
+                setErrorMessage("Username already exists")
                 setLoading(false)
-                console.log(error.code);
+            } else {
+                try{
+
+                    await setPersistence(auth, browserSessionPersistence).then(() =>
+                        createUserWithEmailAndPassword(auth, email, password))
+                    console.log("user: " + auth.currentUser)
+                    uid = auth.currentUser.uid
+                    console.log("user uid: " + uid)
+                    await updateProfile(auth.currentUser, {
+                        displayName: firstName
+                    })
+                    await createUser(firstName, lastName, userName)
+                    await addUsername(userName)
+                    navigate('/dashboard')
+                } catch (error) {
+                    document.getElementById("errorBox").style.display = 'block'
+                    switch(error.code){
+                        case "auth/email-already-exists":
+                            setErrorMessage("Account with Email already exists")
+                            break
+                        case "auth/missing-email":
+                            setErrorMessage("Please enter an email")
+                            break
+                        case "auth/internal-error":
+                            setErrorMessage("Server Error: Please try again later")
+                            break
+                        case "auth/invalid-email":
+                            setErrorMessage("Please enter a valid email")
+                            break
+                        case "auth/invalid-password":
+                            setErrorMessage("Please enter a valid password")
+                            break
+                        case "auth/weak-password":
+                            setErrorMessage("Please enter a longer password")
+                            break
+                        default:
+                            setErrorMessage("Error code: " + error.code)
+                            break
+                    }
+                    setLoading(false)
+                    console.log(error.code);
+                }
             }
         }
         
