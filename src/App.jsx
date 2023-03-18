@@ -6,6 +6,7 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import Dashboard from './pages/Dashboard'
 import PasswordResetPage from './pages/PasswordResetPage'
+import Learn_Pick from './pages/Learn_Pick'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
 			<Route path="/login" element={<LoginPage/>}/>
 			<Route path='/dashboard' element={<Dashboard/>}/>
 			<Route path='/reset' element={<PasswordResetPage/>}/>
+			<Route path='/learn' element={<Learn_Pick/>}/>
 		</Routes>
 	)
 }

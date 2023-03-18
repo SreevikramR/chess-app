@@ -1,13 +1,22 @@
 import { auth, db } from "../firebase";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 
+let firstName = null;
+
 export async function getData() {
     const docRef = doc(db, "users", auth.currentUser.uid);
     return await getDoc(docRef);
 }
 
 export async function getfName() {
-    return (await getData()).data().fName
+    if (firstName == null) {
+        const packet = await getData()
+        const data = packet.data().fName
+        firstName = data
+        return firstName;
+    } else {
+        return firstName;
+    }
 }
 
 export async function checkUsernameExists(username) {

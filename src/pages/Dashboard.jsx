@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import './styles/Dashboard.css'
 import learn from '../assets/learn-logo.jpg'
 import train from '../assets/train-logo.jpg'
+import Learn_Pick from './Learn_Pick';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -59,10 +60,12 @@ function Dashboard() {
 
     const _learn = () => {
         return (
-            <div className='learnBox'>
-                <img src={learn} className='learnImg'/>
-                <h2>Learn</h2>
-            </div>
+            <Link to='/learn'>
+                <div className='learnBox'>
+                    <img src={learn} className='learnImg'/>
+                    <h2>Learn</h2>
+                </div>
+            </Link>
         )
     }
 
@@ -76,12 +79,12 @@ function Dashboard() {
     }
 
     if (auth.currentUser === null) {
-        setTimeout(() => {
-            navigate('/login')
-        }, 2000)
-        
+        setTimeout(() => {navigate('/login')}, 3000)
         return (
-            <h1> Please Login </h1>
+            <div style={{marginTop:'40vh'}}>
+                <h1> Please Login to view this page.</h1>
+                <h2 style={{marginTop:'2vh'}}>Redirecting to login page...</h2>
+            </div>
         )
     } else {
         return (
