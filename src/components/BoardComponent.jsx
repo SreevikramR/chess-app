@@ -73,8 +73,8 @@ const BoardComponent = () => {
     }
 
   return (
-    <div>
-      <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} isDraggablePiece={isDraggable} animationDuration={750}/>
+    <div style={{margin:'20px'}}>
+      <Chessboard boardWidth={boardWidth} position={position} onPieceDrop={onDrop} animationDuration={750}/>
     </div>
   )
 }

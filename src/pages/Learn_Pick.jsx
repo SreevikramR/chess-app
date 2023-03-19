@@ -5,6 +5,7 @@ import './styles/Navbar.css'
 import './styles/Learn_Pick.css'
 import { Link } from 'react-router-dom'
 import { getfName } from '../components/FSAcess'
+import ruyLopez from '../assets/ruy-lopez.png'
 
 const Learn_Pick = () => {
     const navigate = useNavigate();
@@ -21,7 +22,10 @@ const Learn_Pick = () => {
 
     const _openingBlock = () => {
         return (
-            <div className='openingBlock'>Ruy Lopez</div>
+            <div className='openingBlock'>
+                <img src={ruyLopez}/>
+                <h2>Ruy Lopez</h2>
+            </div>
         )
     }
 
@@ -29,7 +33,7 @@ const Learn_Pick = () => {
         return(
             <>
                 <h1>Pick Opening to learn</h1>
-                <div style={{flexDirection:'row'}}>
+                <div style={{flexDirection:'row'}} className='gridrow'>
                     <_openingBlock/>
                     <_openingBlock/>
                     <_openingBlock/>

@@ -16,4 +16,27 @@
     border: 0.25vw solid #576CE8;
     width: 19.5vw;
     height: 37vh;
+    float: inline-start;
+    margin-top: 1.75vh;
+}
+
+.gridrow {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 1vh;
+}
+
+.gridrow::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+img {
+    margin-top: 1.75vh;
+    width: 12.5vw;
+}
+
+h2 {
+    padding-top: 1vh;
 }
