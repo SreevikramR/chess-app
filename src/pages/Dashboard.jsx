@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
-import './styles/Navbar.css'
 import { getfName } from '../components/FSAcess';
-import './styles/Navbar.css'
 import { Link } from 'react-router-dom';
 import './styles/Dashboard.css'
 import learn from '../assets/learn-logo.jpg'
 import train from '../assets/train-logo.jpg'
-import Learn_Pick from './Learn_Pick';
 
 function Dashboard() {
     const navigate = useNavigate();

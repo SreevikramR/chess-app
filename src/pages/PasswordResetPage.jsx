@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { auth } from '../firebase'
 import { sendPasswordResetEmail } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import './styles/Navbar.css'
+import '../components/styles/Navbar.css'
 import Navbar from '../components/Navbar'
 
 const PasswordResetPage = () => {

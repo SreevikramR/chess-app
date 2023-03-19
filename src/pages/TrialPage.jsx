@@ -4,19 +4,15 @@ import { useState, useEffect } from 'react'
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard'
 import MoveSelector from '../components/MoveSelector'
-import close from '../assets/close.png'
-import correct from '../assets/correct.png'
 import Navbar from '../components/Navbar'
-import './styles/Navbar.css'
+import MoveTable from '../components/MoveTable'
 
 let openeingName = 'Ruy Lopez';
 let openingLine = 'Cozio Defense';
 let movePlayed;
 let moveMessage;
 let moveSequence = [];
-let image;
-let moveHistory = [];
-let indexid = 'ti0';
+let moveHistory = []
 
 function TrialPage() {
 
@@ -83,11 +79,6 @@ function TrialPage() {
 
         if(nextMove === "invalid"){
             moveMessage = " is not the correct move"
-            indexid = 'ti' + (moveHistory.length - 1);
-            console.log(indexid)
-            document.getElementById(indexid).className = '';
-            document.getElementById(indexid).classList.add('wrongMove');
-            image = close
             movePlayed = moveHistory[moveHistory.length - 1]
             setTimeout(() =>  {
                 game.undo();
@@ -97,25 +88,17 @@ function TrialPage() {
             
         } else if(nextMove == null){
             moveMessage = " is the correct move!"
-            indexid = 'ti' + (moveHistory.length - 1);
-            document.getElementById(indexid).classList.add('correctMove');
-            image = correct
             movePlayed = moveHistory[moveHistory.length - 1]
             moveMessage = "Opening Complete!"
-            image = correct
             movePlayed = ""
             //console.log("move sequence complete")
         } else {
             setTimeout(() => {
                 moveMessage = " is the correct move!"
-                indexid = 'ti' + (moveHistory.length - 1);
-                document.getElementById(indexid).classList.add('correctMove');
-                image = correct
                 movePlayed = moveHistory[moveHistory.length - 1]
 
 
                 if(moveHistory.length === moveSequence.length - 1){
-                    image = correct
                     moveMessage = "Opening Complete!"
                     movePlayed = ""
                     //console.log("move sequence complete")
@@ -158,13 +141,12 @@ function TrialPage() {
         moveSequence = getMoveSequence(openeingName, openingLine[openingLineIndex]);
         setGame(gameCopy);
         setPosition(gameCopy.fen());
-        document.getElementById(indexid).className = ''
         moveHistory = []
     }
 
     return(
         <>
-            <Navbar/>
+            <Navbar inDashboard={false}/>
             <div className='content'>
                 <div className="row">
                     <div className="hc1">
@@ -172,53 +154,8 @@ function TrialPage() {
                     </div>
                     <div className="hc2">
                         <h1>{openeingName}</h1>
-                        <table>
-                            <tr>
-                                <th colSpan={3}>
-                                    <h2>{openingLine}</h2>
-                                </th>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>1</td>
-                                <td id='ti0'>{moveHistory[0]}</td>
-                                <td id='ti1'>{moveHistory[1]}</td>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>2</td>
-                                <td id='ti2'>{moveHistory[2]}</td>
-                                <td id='ti3'>{moveHistory[3]}</td>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>3</td>
-                                <td id='ti4'>{moveHistory[4]}</td>
-                                <td id='ti5'>{moveHistory[5]}</td>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>4</td>
-                                <td id='ti6'>{moveHistory[6]}</td>
-                                <td id='ti7'>{moveHistory[7]}</td>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>5</td>
-                                <td id='ti8'>{moveHistory[8]}</td>
-                                <td id='ti9'>{moveHistory[9]}</td>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>6</td>
-                                <td id='ti10'>{moveHistory[10]}</td>
-                                <td id='ti11'>{moveHistory[11]}</td>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>7</td>
-                                <td id='ti12'>{moveHistory[12]}</td>
-                                <td id='ti13'>{moveHistory[13]}</td>
-                            </tr>
-                            <tr>
-                                <td className='indexNumber'>8</td>
-                                <td id='ti14'>{moveHistory[14]}</td>
-                                <td id='ti15'>{moveHistory[15]}</td>
-                            </tr>
-                        </table>
+                        
+                        <MoveTable moveSequence={moveSequence} moves={moveHistory} openingLine={openingLine}/>
 
                         {/* <img src={image}/>
                         <h3>{movePlayed}{moveMessage}</h3> */}

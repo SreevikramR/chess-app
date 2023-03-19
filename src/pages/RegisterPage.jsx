@@ -6,7 +6,6 @@ import { doc, setDoc } from 'firebase/firestore'
 import { useNavigate } from "react-router-dom";
 import { checkUsernameExists, addUsername, createUser } from '../components/FSAcess'
 import Navbar from '../components/Navbar'
-import './styles/Navbar.css'
 
 const RegisterPage = () => {
     const navigate = useNavigate();

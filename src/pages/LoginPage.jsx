@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react'
 import { auth } from '../firebase'
 import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import './styles/Navbar.css'
 import Navbar from '../components/Navbar'
 
 const LoginPage = () => {
@@ -65,7 +64,7 @@ const LoginPage = () => {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar inDashboard={false}/>
             <div className='content'>
                 <h1>Login</h1>
                 <div id='errorBox' className='errorBox'><p className='errorMessage'>{errorMessage}</p></div>

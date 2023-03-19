@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
-import './styles/Navbar.css'
+import '../components/styles/Navbar.css'
 import './styles/Learn_Pick.css'
 import { Link } from 'react-router-dom'
 import { getfName } from '../components/FSAcess'
