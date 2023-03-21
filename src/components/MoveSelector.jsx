@@ -1,32 +1,31 @@
-import { getLines, getMoveSequence } from './MoveRetreival.jsx'
+import { getLines, getMoveSequence } from "./MoveRetreival.jsx";
 
 const MoveSelector = (moveHistory, openingName, lineIndex) => {
+  const openingLines = getLines(openingName);
 
-	const openingLines = getLines(openingName)
+  var moveSequence = [];
+  moveSequence = getMoveSequence(openingName, openingLines[lineIndex]);
 
-	var moveSequence = []
-	moveSequence = getMoveSequence(openingName, openingLines[lineIndex])
+  //console.log(moveHistory);
+  var i = 0;
+  var j = moveHistory.length;
 
-  	//console.log(moveHistory);
-  	var i = 0;
-  	var j = moveHistory.length;
+  if (moveSequence.length + 1 == moveHistory.length) {
+    return null;
+  }
 
-	if(moveSequence.length + 1 == moveHistory.length){
-		return null
-	}
+  for (i = moveHistory.length - 1; i < moveHistory.length; i++) {
+    if (moveHistory[i] !== moveSequence[i]) {
+      //console.log("moveHistory: " + moveHistory[i] + ", moveSequence: " + moveSequence[i]);
+      return "invalid";
+    } else {
+      // console.log("Next move: " + moveSequence[j]);
+      return moveSequence[j];
+    }
+  }
+};
 
-	for(i=moveHistory.length - 1; i < moveHistory.length; i++){
-		if(moveHistory[i] !== moveSequence[i]){
-		//console.log("moveHistory: " + moveHistory[i] + ", moveSequence: " + moveSequence[i]);
-		return "invalid"
-		} else {
-		// console.log("Next move: " + moveSequence[j]);
-		return moveSequence[j]
-		}
-	}
-}
-
-export default MoveSelector
+export default MoveSelector;
 
 // Use JSON to store data of all the openings
 /* {
