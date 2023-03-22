@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { useState, useEffect } from "react";
-import { getfName } from "./FSAcess";
-import "./styles/Navbar.css";
+import { getfName } from "../../scripts/FSAcess";
+import "./Navbar.css";
 
 const Navbar = ({ inDashboard }) => {
   const [loggedIn, setLoggedIn] = useState(false);

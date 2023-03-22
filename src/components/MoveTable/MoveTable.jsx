@@ -1,12 +1,16 @@
 import React, { useEffect } from "react";
-import "./styles/MoveTable.css";
+import "./MoveTable.css";
+import { useChessboard } from "../../contexts/BoardContext";
 
 let moveIds = [];
 let correctMoves = [];
 let wrongMove;
 let previousMoveSequence;
 
-const MoveTable = ({ moveSequence, moves, openingLine, moveResult }) => {
+const MoveTable = () => {
+
+  const {moveHistory, openingLine, moveResult, moveSequence} = useChessboard()
+
   let sequenceLength = moveSequence.length;
   let numRows = Math.ceil(sequenceLength / 2);
   if (previousMoveSequence !== moveSequence) {
@@ -20,8 +24,8 @@ const MoveTable = ({ moveSequence, moves, openingLine, moveResult }) => {
 
   for (let i = 0; i < numRows; i++) {
     let rowNumber = i + 1;
-    let whiteMove = moves[i * 2];
-    let blackMove = moves[i * 2 + 1];
+    let whiteMove = moveHistory[i * 2];
+    let blackMove = moveHistory[i * 2 + 1];
 
     let whiteCellId = whiteMove !== undefined ? "ti" + i * 2 : "";
     if (whiteCellId !== "") {
@@ -41,7 +45,6 @@ const MoveTable = ({ moveSequence, moves, openingLine, moveResult }) => {
   }
 
   let lastMove = moveIds[moveIds.length - 1];
-  console.log(lastMove);
   if (
     moveResult === "correct" &&
     lastMove !== undefined &&
@@ -51,14 +54,14 @@ const MoveTable = ({ moveSequence, moves, openingLine, moveResult }) => {
     wrongMove = "";
   } else if (moveResult === "wrong") {
     wrongMove = lastMove;
-    console.log("move is wrong");
+    //console.log("move is wrong");
   }
 
   useEffect(() => {
     setTimeout(() => {
       if (correctMoves.length !== 0 || wrongMove) {
         for (let j = 0; j < correctMoves.length; j++) {
-          console.log(correctMoves[j]);
+          //console.log(correctMoves[j]);
           document.getElementById(correctMoves[j]).className = "";
           document.getElementById(correctMoves[j]).classList.add("correct");
         }
@@ -68,7 +71,7 @@ const MoveTable = ({ moveSequence, moves, openingLine, moveResult }) => {
         }
       }
     }, 50);
-  }, [moves]);
+  }, [moveHistory]);
 
   return (
     <table>

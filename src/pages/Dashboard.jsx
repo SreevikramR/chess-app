@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { getfName } from "../components/FSAcess";
+import { getfName } from "../scripts/FSAcess";
 import { Link } from "react-router-dom";
 import "./styles/Dashboard.css";
 import learn from "../assets/learn-logo.jpg";
@@ -57,7 +57,7 @@ function Dashboard() {
 
   const _learn = () => {
     return (
-      <Link to="/learn">
+      <Link to="/learn_now">
         <div className="learnBox">
           <img src={learn} className="learnImg" />
           <h2>Learn</h2>

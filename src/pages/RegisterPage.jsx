@@ -3,12 +3,8 @@ import React, {useState, useEffect} from 'react'
 import { createUserWithEmailAndPassword, setPersistence, browserSessionPersistence, updateProfile } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useNavigate } from "react-router-dom";
-import {
-  checkUsernameExists,
-  addUsername,
-  createUser,
-} from "../components/FSAcess";
-import Navbar from "../components/Navbar";
+import { checkUsernameExists, addUsername, createUser } from "../scripts/FSAcess";
+import Navbar from '../components/Navbar/Navbar';
 
 const RegisterPage = () => {
   const navigate = useNavigate();

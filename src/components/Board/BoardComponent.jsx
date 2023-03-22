@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Chess } from "chess.js";
 import { Chessboard } from "react-chessboard";
-import MoveSelector from "./MoveSelector";
+import MoveSelector from "../MoveSelector";
 
 const BoardComponent = () => {
   const [game, setGame] = useState(new Chess());

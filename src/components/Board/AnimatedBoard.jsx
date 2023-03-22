@@ -1,5 +1,5 @@
 import { Chess } from "chess.js";
-import { getMoveSequence, getLines, getOpenings } from '../components/MoveRetreival';
+import { getMoveSequence, getLines, getOpenings } from "../../scripts/MoveRetreival";
 import { Chessboard } from 'react-chessboard'
 import { useState, useEffect } from "react";
 

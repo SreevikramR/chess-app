@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { auth } from '../firebase'
 import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar/Navbar'
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -95,10 +95,10 @@ const LoginPage = () => {
         </form>
         <div className="otherActions">
           <Link to="/register" style={{ textDecoration: "none" }}>
-            <label className="registerButton">Register</label>
+            <label className="registerButton" >Register</label>
           </Link>
-          <Link to="/reset" style={{ textDecoration: "none" }}>
-            <label className="forgotPassword">Forgot Password?</label>
+          <Link to="/reset" style={{ textDecoration: "none", cursor:"pointer" }}>
+            <label className="forgotPassword" >Forgot Password?</label>
           </Link>
         </div>
       </div>

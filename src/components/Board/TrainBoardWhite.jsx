@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Chess } from "chess.js";
-import { getMoveSequence, getLineIndex } from "./MoveRetreival";
-import MoveSelector from "./MoveSelector";
+import { getLineIndex } from "../../scripts/MoveRetreival";
+import MoveSelector from "../../scripts/MoveSelector";
 import { Chessboard } from "react-chessboard";
+import { useChessboard } from "../../contexts/BoardContext";
 
 let previousLine = "Cozio Defense";
 let indexid = "ti0";
 let nextMove;
+let tempMoveHistory = []
 
-const TrainBoardWhite = ({
-  openingName,
-  openingLine,
-  moveHistory,
-  updateMoveHistory,
-  setMoveResult,
-}) => {
-  let tempMoveHistory = moveHistory;
+const TrainBoardWhite = () => {
+
+  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence} = useChessboard()
+
+  tempMoveHistory = moveHistory;
   let openingLineIndex = getLineIndex(openingName, openingLine);
-  let moveSequence = getMoveSequence(openingName, openingLine);
 
   var viewPortWidth = window.innerWidth;
   var viewPortHeight = window.innerHeight;
@@ -48,7 +46,6 @@ const TrainBoardWhite = ({
     const gameCopy = new Chess();
     game.loadPgn(gameCopy.pgn());
     setPosition(game.fen());
-    moveSequence = getMoveSequence(openingName, openingLine[openingLineIndex]);
     previousLine = openingLine;
   }, [openingLine]);
 
@@ -56,7 +53,6 @@ const TrainBoardWhite = ({
     const newGame = new Chess();
     setGame(newGame);
     setPosition(game.fen());
-    moveSequence = getMoveSequence(openingName, openingLine[openingLineIndex]);
     previousLine = openingLine;
   }
 
@@ -81,7 +77,7 @@ const TrainBoardWhite = ({
     setPosition(game.fen());
 
     //moveHistory = gameCopy.history();
-    updateMoveHistory(gameCopy.history());
+    setMoveHistory(gameCopy.history());
     tempMoveHistory = gameCopy.history();
     //console.log("last move played: " + moveHistory[moveHistory.length - 1])
     nextMove = MoveSelector(tempMoveHistory, openingName, openingLineIndex);
@@ -120,7 +116,7 @@ const TrainBoardWhite = ({
     setGame(gameCopy);
     setPosition(game.fen());
     //moveHistory.push(nextMove)
-    updateMoveHistory(gameCopy.history());
+    setMoveHistory(gameCopy.history());
   };
 
   const onDrop = (startSquare, endSquare) => {

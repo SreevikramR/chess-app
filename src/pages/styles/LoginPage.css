@@ -44,13 +44,18 @@ h1 {
 
 .registerButton {
     padding-left: 0;
+    margin-right: 5vw;
+    cursor: pointer;
 }
 
 .otherActions {
     flex-direction: row;
+    justify-content: space-between;
     margin-top: 3vh;
 }
 
 .forgotPassword {
-    padding-left: 15vw;
+    margin-left: 6vw;
+    padding-left: 0vw;
+    cursor: pointer;
 }

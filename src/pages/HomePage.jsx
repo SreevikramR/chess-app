@@ -1,8 +1,8 @@
 import React from "react";
 import "./styles/HomePage.css";
 import { Link } from "react-router-dom";
-import ShowBoard from "../components/AnimatedBoard";
-import Navbar from "../components/Navbar";
+import ShowBoard from "../components/Board/AnimatedBoard";
+import Navbar from "../components/Navbar/Navbar";
 
 function HomePage() {
   return (
