@@ -1,5 +1,6 @@
 import React, { useContext, createContext } from 'react'
 import { useState } from 'react';
+import { Chess } from 'chess.js';
 
 export const ChessboardContext = createContext();
 
@@ -11,6 +12,9 @@ export const BoardProvider = ({ children }) => {
   const [openingLine, setOpeningLine] = useState("Cozio Defense");
   const [moveResult, setMoveResult] = useState("correct");
 	const [moveSequence, setMoveSequence] = useState([]);
+	const [popUpState, setPopUpState] = useState(false);
+	const [game, setGame] = useState(new Chess());
+	const [position, setPosition] = useState()
 	
 
 	return (
@@ -25,6 +29,12 @@ export const BoardProvider = ({ children }) => {
 			setMoveResult,
 			moveSequence,
 			setMoveSequence,
+			popUpState,
+			setPopUpState,
+			game,
+			setGame,
+			position,
+			setPosition
 			}}>
 			{ children }
 		</ChessboardContext.Provider>

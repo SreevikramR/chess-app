@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import { useChessboard } from "../../contexts/BoardContext";
+import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { getLineIndex } from "../../scripts/MoveRetreival";
 import MoveSelector from "../../scripts/MoveSelector";
-import { Chessboard } from "react-chessboard";
-import { useChessboard } from "../../contexts/BoardContext";
+import React, { useState, useEffect } from 'react'
+import getLearnLine from "../../scripts/LearnLine";
 
-let previousLine = "Cozio Defense";
 let nextMove;
 let tempMoveHistory = []
+let arrowArray = []
 
-const TrainBoardWhite = () => {
-
-  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence} = useChessboard()
+const LearnBoardWhite = () => {
+  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence, game, setGame, position, setPosition} = useChessboard()
 
   tempMoveHistory = moveHistory;
   let openingLineIndex = getLineIndex(openingName, openingLine);
@@ -19,8 +19,6 @@ const TrainBoardWhite = () => {
   var viewPortWidth = window.innerWidth;
   var viewPortHeight = window.innerHeight;
 
-  const [game, setGame] = useState(new Chess());
-  const [position, setPosition] = useState();
   const [boardWidth, setBoardWidth] = useState(500);
 
   viewPortWidth = window.innerWidth;
@@ -39,21 +37,27 @@ const TrainBoardWhite = () => {
 
   useEffect(() => {
     setGame(new Chess());
+    arrowArray = []
+    getExpectedMove()
   }, []);
+
+  function getExpectedMove() {
+    let gameCopy = new Chess(game.fen());
+    gameCopy.loadPgn(game.pgn());
+    tempMoveHistory = gameCopy.history();
+    let expectedMove = MoveSelector(tempMoveHistory, openingName, openingLineIndex);
+    console.log(expectedMove)
+    gameCopy.move(expectedMove)
+    let history = gameCopy.history({verbose: true})
+    arrowArray.push(history.at(-1).from)
+    arrowArray.push(history.at(-1).to)
+  }
 
   useEffect(() => {
     const gameCopy = new Chess();
     game.loadPgn(gameCopy.pgn());
     setPosition(game.fen());
-    previousLine = openingLine;
   }, [openingLine]);
-
-  if (previousLine != openingLine) {
-    const newGame = new Chess();
-    setGame(newGame);
-    setPosition(game.fen());
-    previousLine = openingLine;
-  }
 
   useEffect(() => {
     viewPortWidth = window.innerWidth;
@@ -71,6 +75,7 @@ const TrainBoardWhite = () => {
     gameBackup.loadPgn(game.pgn());
     const gameCopy = game;
     gameCopy.loadPgn(game.pgn());
+    console.log(move)
     gameCopy.move(move);
     setGame(gameCopy);
     setPosition(game.fen());
@@ -108,11 +113,14 @@ const TrainBoardWhite = () => {
   const playMove = (nextMove) => {
     const gameCopy = game;
     gameCopy.loadPgn(game.pgn());
+    console.log(nextMove)
     gameCopy.move(nextMove);
     setGame(gameCopy);
     setPosition(game.fen());
     //moveHistory.push(nextMove)
     setMoveHistory(gameCopy.history());
+    arrowArray = []
+    getExpectedMove()
   };
 
   const onDrop = (startSquare, endSquare) => {
@@ -143,8 +151,9 @@ const TrainBoardWhite = () => {
       onPieceDrop={onDrop}
       isDraggablePiece={isDraggable}
       animationDuration={750}
+      customArrows={[arrowArray]}
     />
   );
-};
+}
 
-export default TrainBoardWhite;
+export default LearnBoardWhite

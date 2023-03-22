@@ -6,13 +6,18 @@ import { Link } from "react-router-dom";
 import { getfName } from "../scripts/FSAcess";
 import ruyLopez from "../assets/ruy-lopez.png";
 import Navbar from "../components/Navbar/Navbar"
+import { useChessboard } from "../contexts/BoardContext";
+import PopUp from "../components/PopUp/PopUp";
 
 const Learn_Pick = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
 
+  const {setPopUpState, setOpeningName, openingName} = useChessboard()
+
   useEffect(() => {
     setData();
+    setPopUpState(false)
   }, []);
 
   async function setData() {
@@ -20,14 +25,16 @@ const Learn_Pick = () => {
     setName(data);
   }
 
+  function openPopUp() {
+    setPopUpState(true)
+  }
+
   const _openingBlock = () => {
     return (
-      <Link to={"/learn"}>
-        <div className="openingBlock">
-          <img src={ruyLopez} />
-          <h2>Ruy Lopez</h2>
-        </div>
-      </Link>
+      <div className="openingBlock" onClick={openPopUp}>
+        <img src={ruyLopez} />
+        <h2>{openingName}</h2>
+      </div>
     );
   };
 
@@ -63,16 +70,7 @@ const Learn_Pick = () => {
         <div className="content">
           <_learn />
         </div>
-        <div className="modal" id="modal">
-          <div className="modal-header">
-            <div className="title">Modal Title</div>
-            <button className="close-button">&times;</button>
-          </div>
-          <div className="modal-body">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mattis vulputate enim nulla aliquet porttitor lacus luctus. In dictum non consectetur a erat nam. Pellentesque sit amet porttitor eget. Potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed. Sagittis orci a scelerisque purus semper eget. Nam at lectus urna duis convallis convallis tellus. Convallis convallis tellus id interdum. Mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Sodales neque sodales ut etiam sit. Tincidunt eget nullam non nisi est. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Euismod quis viverra nibh cras pulvinar mattis nunc sed. Tempor nec feugiat nisl pretium fusce id velit ut tortor
-          </div>
-        </div>
-        <div id="overlay"></div>
+        <PopUp />
       </>
     );
   }
