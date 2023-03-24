@@ -8,10 +8,10 @@ let wrongMove;
 let previousMoveSequence;
 
 const MoveTable = () => {
+  
+  const {moveHistory, openingLine, moveResult, moveSequence, openingComplete} = useChessboard()
 
-  const {moveHistory, openingLine, moveResult, moveSequence} = useChessboard()
-
-  let sequenceLength = moveSequence.length;
+  let sequenceLength = moveSequence ? moveSequence.length : 0;
   let numRows = Math.ceil(sequenceLength / 2);
   if (previousMoveSequence !== moveSequence) {
     previousMoveSequence = moveSequence;
@@ -21,6 +21,15 @@ const MoveTable = () => {
   }
 
   let rows = [];
+
+  useEffect(() => {
+    if(openingComplete) {
+      document.getElementById('movesTable').classList.add('openingComplete')
+    } else {
+      document.getElementById('movesTable').classList.remove('openingComplete')
+    }
+  }, [openingComplete])
+
 
   for (let i = 0; i < numRows; i++) {
     let rowNumber = i + 1;
@@ -74,7 +83,7 @@ const MoveTable = () => {
   }, [moveHistory]);
 
   return (
-    <table>
+    <table id='movesTable'>
       <thead>
         <tr>
           <th colSpan={3}>

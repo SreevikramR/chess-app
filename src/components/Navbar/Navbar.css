@@ -6,6 +6,7 @@
     margin-bottom: 1vh;
     border-bottom: 0.15vh solid rgb(56, 56, 56);
     width: 100%;
+    z-index: 9;
 }
 
 .leftAlign {

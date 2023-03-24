@@ -8,12 +8,13 @@ import ruyLopez from "../assets/ruy-lopez.png";
 import Navbar from "../components/Navbar/Navbar"
 import { useChessboard } from "../contexts/BoardContext";
 import PopUp from "../components/PopUp/PopUp";
+import { getAlternateLine } from "../scripts/MoveRetreival";
 
 const Learn_Pick = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
 
-  const {setPopUpState, setOpeningName, openingName} = useChessboard()
+  const {setPopUpState, setOpeningName, openingName, setOpeningLine} = useChessboard()
 
   useEffect(() => {
     setData();
@@ -27,6 +28,7 @@ const Learn_Pick = () => {
 
   function openPopUp() {
     setPopUpState(true)
+    setOpeningLine(getAlternateLine(openingName, ""))
   }
 
   const _openingBlock = () => {

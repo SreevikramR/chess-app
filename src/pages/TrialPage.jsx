@@ -7,7 +7,7 @@ import TrainBoardWhite from '../components/Board/TrainBoardWhite'
 import { useChessboard } from '../contexts/BoardContext'
 
 function TrialPage() {
-  const {setMoveHistory, openingLine, setOpeningLine, setMoveResult, openingName, setMoveSequence, moveSequence} = useChessboard()
+  const {setMoveHistory, openingLine, setOpeningLine, openingName, setMoveSequence, moveSequence} = useChessboard()
 
   let openingLineIndex = getLineIndex(openingName, openingLine);
   setMoveSequence(getMoveSequence(openingName, openingLine));
@@ -22,14 +22,6 @@ function TrialPage() {
     setMoveSequence(getMoveSequence(openingName, openingLine[openingLineIndex]));
     console.log(moveSequence)
     setMoveHistory([]);
-  }
-
-  function updateMoveHistory(history) {
-    setMoveHistory(history);
-  }
-
-  function setMoveResultFunc(result) {
-    setMoveResult(result);
   }
 
   return (

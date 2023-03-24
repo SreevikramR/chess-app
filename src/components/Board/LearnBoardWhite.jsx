@@ -4,14 +4,13 @@ import { Chess } from "chess.js";
 import { getLineIndex } from "../../scripts/MoveRetreival";
 import MoveSelector from "../../scripts/MoveSelector";
 import React, { useState, useEffect } from 'react'
-import getLearnLine from "../../scripts/LearnLine";
 
 let nextMove;
 let tempMoveHistory = []
 let arrowArray = []
 
 const LearnBoardWhite = () => {
-  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence, game, setGame, position, setPosition} = useChessboard()
+  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence, game, setGame, position, setPosition, setOpeningComplete, openingComplete} = useChessboard()
 
   tempMoveHistory = moveHistory;
   let openingLineIndex = getLineIndex(openingName, openingLine);
@@ -37,26 +36,32 @@ const LearnBoardWhite = () => {
 
   useEffect(() => {
     setGame(new Chess());
-    arrowArray = []
     getExpectedMove()
   }, []);
 
   function getExpectedMove() {
+    arrowArray = []
     let gameCopy = new Chess(game.fen());
     gameCopy.loadPgn(game.pgn());
     tempMoveHistory = gameCopy.history();
     let expectedMove = MoveSelector(tempMoveHistory, openingName, openingLineIndex);
-    console.log(expectedMove)
-    gameCopy.move(expectedMove)
-    let history = gameCopy.history({verbose: true})
-    arrowArray.push(history.at(-1).from)
-    arrowArray.push(history.at(-1).to)
+    if(expectedMove != undefined) {
+      //console.log(expectedMove)
+      gameCopy.move(expectedMove)
+      let history = gameCopy.history({verbose: true})
+      arrowArray.push(history.at(-1).from)
+      arrowArray.push(history.at(-1).to)
+    } else {
+      arrowArray = ['', '']
+      setOpeningComplete(true)
+    }
   }
 
   useEffect(() => {
     const gameCopy = new Chess();
     game.loadPgn(gameCopy.pgn());
     setPosition(game.fen());
+    getExpectedMove()
   }, [openingLine]);
 
   useEffect(() => {
@@ -75,7 +80,7 @@ const LearnBoardWhite = () => {
     gameBackup.loadPgn(game.pgn());
     const gameCopy = game;
     gameCopy.loadPgn(game.pgn());
-    console.log(move)
+    //console.log(move)
     gameCopy.move(move);
     setGame(gameCopy);
     setPosition(game.fen());
@@ -119,7 +124,6 @@ const LearnBoardWhite = () => {
     setPosition(game.fen());
     //moveHistory.push(nextMove)
     setMoveHistory(gameCopy.history());
-    arrowArray = []
     getExpectedMove()
   };
 
@@ -132,15 +136,17 @@ const LearnBoardWhite = () => {
   };
 
   const isDraggable = (piece, sourceSquare) => {
-    if (
-      piece.piece === "wP" ||
-      piece.piece === "wR" ||
-      piece.piece === "wB" ||
-      piece.piece === "wN" ||
-      piece.piece === "wK" ||
-      piece.piece === "wQ"
-    ) {
-      return true;
+    if(!openingComplete) {
+      if (
+        piece.piece === "wP" ||
+        piece.piece === "wR" ||
+        piece.piece === "wB" ||
+        piece.piece === "wN" ||
+        piece.piece === "wK" ||
+        piece.piece === "wQ"
+      ) {
+        return true;
+      } else return false;
     } else return false;
   };
 
@@ -152,6 +158,7 @@ const LearnBoardWhite = () => {
       isDraggablePiece={isDraggable}
       animationDuration={750}
       customArrows={[arrowArray]}
+      customArrowColor="rgb(87, 109, 232, 0.9)"
     />
   );
 }

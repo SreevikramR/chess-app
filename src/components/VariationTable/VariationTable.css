@@ -12,6 +12,14 @@ table {
     border: 0.5vh solid rgb(32, 227, 28);
 }
 
+.variationRow:hover {
+    background-color: rgb(54, 54, 54);
+}
+
+.variationRow {
+    cursor: pointer;
+}
+
 th {
     background-color: rgb(35, 35, 35);
     border-bottom: 0.15vh solid rgb(56, 56, 56);

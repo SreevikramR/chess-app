@@ -15,6 +15,7 @@ export const BoardProvider = ({ children }) => {
 	const [popUpState, setPopUpState] = useState(false);
 	const [game, setGame] = useState(new Chess());
 	const [position, setPosition] = useState()
+	const [openingComplete, setOpeningComplete] = useState(false)
 	
 
 	return (
@@ -34,7 +35,9 @@ export const BoardProvider = ({ children }) => {
 			game,
 			setGame,
 			position,
-			setPosition
+			setPosition,
+			openingComplete,
+			setOpeningComplete,
 			}}>
 			{ children }
 		</ChessboardContext.Provider>

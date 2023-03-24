@@ -1,6 +1,6 @@
 import data from "../Data/openings.json";
 
-const ruyLopezLines = ["Alapin Defense", "Cozio Defense", "Schliemann Defense"];
+const ruyLopezLines = ["Alapin Defense", "Cozio Defense", "Schliemann Defense", "Bird Variation", "Steinitz Defense", "Classical Defense"];
 
 export function getLines(openingName) {
   const openingLines = Object.keys(data.Openings[openingName]["lines"]);

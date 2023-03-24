@@ -11,7 +11,7 @@ let tempMoveHistory = []
 
 const TrainBoardWhite = () => {
 
-  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence} = useChessboard()
+  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence, setOpeningComplete} = useChessboard()
 
   tempMoveHistory = moveHistory;
   let openingLineIndex = getLineIndex(openingName, openingLine);
@@ -91,12 +91,14 @@ const TrainBoardWhite = () => {
       }, 100);
     } else if (nextMove == null) {
       setMoveResult("correct");
+      setOpeningComplete(true)
       //console.log("move sequence complete")
     } else {
       setTimeout(() => {
         setMoveResult("correct");
 
         if (tempMoveHistory.length === moveSequence.length - 1) {
+          setOpeningComplete(true)
           //console.log("move sequence complete")
         }
 
