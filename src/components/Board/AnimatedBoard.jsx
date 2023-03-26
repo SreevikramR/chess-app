@@ -2,18 +2,34 @@ import { Chess } from "chess.js";
 import { Chessboard } from 'react-chessboard'
 import { useState, useEffect } from "react";
 import { getAlternateLine, getMoveSequence, readOpening, setFirstLine } from "../../scripts/FSAcess";
+import { useLocation } from "react-router-dom";
 
 let firstRun = true;
 
-const ShowBoard = () => {
+const ShowBoard = (props) => {
   const [game, setGame] = useState(new Chess());
   const [position, setPosition] = useState();
   const [boardWidth, setBoardWidth] = useState(450);
+
+  const location = useLocation();
 
   let moveSequence = [];
   let openingVariation;
   var viewPortWidth = window.innerWidth;
   var viewPortHeight = window.innerHeight;
+
+  useEffect(() => {
+    firstRun = true
+    viewPortWidth = window.innerWidth;
+    viewPortHeight = window.innerHeight;
+
+    if (viewPortWidth / 2 > 450) {
+      setBoardWidth(450);
+    } else {
+      setBoardWidth(viewPortWidth / 2.5);
+    }
+    playMoves();
+  }, [location.pathname])
 
   useEffect(() => {
     viewPortWidth = window.innerWidth;
@@ -43,6 +59,7 @@ const ShowBoard = () => {
     const gameCopy = game;
     gameCopy.loadPgn(game.pgn());
     gameCopy.move(move);
+    console.log(move)
     setGame(gameCopy);
     setPosition(game.fen());
     //console.log(game.pgn());

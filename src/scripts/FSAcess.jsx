@@ -2,7 +2,9 @@ import { auth, db } from "../firebase";
 import { getDoc, doc, setDoc, collection, getDocs } from "firebase/firestore";
 
 let firstName = null;
+let openings = [];
 let openingData = [];
+let previousOpeningName;
 let openingLines;
 
 export async function getData() {
@@ -47,14 +49,18 @@ export async function createUser(firstName, lastName, username) {
 }
 
 export async function readOpening(openingName){
-  openingData = []
-  //console.log(openingData)
-
-  const docRef = doc(db, "openings", openingName);
-  const packet = await getDoc(docRef);
-  openingData = packet.data()
-
-  openingLines = Object.keys(openingData)
+  if(previousOpeningName == openingName){
+    return
+  } else {
+    openingData = []
+    //console.log(openingData)
+  
+    const docRef = doc(db, "openings", openingName);
+    const packet = await getDoc(docRef);
+    openingData = packet.data()
+  
+    openingLines = Object.keys(openingData)
+  }
 }
 
 export async function getLines(){
@@ -84,6 +90,15 @@ export async function getAlternateLine(currentLine) {
         return openingLines[index];
       }
     }
+}
+
+export async function getAllOpenings(){
+  const querySnapshot = await getDocs(collection(db, "openings"));
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, " => ", doc.data());
+  });
+
 }
 
 function randomNumber(max) {

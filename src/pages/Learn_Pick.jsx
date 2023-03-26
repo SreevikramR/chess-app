@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import "./styles/Learn_Pick.css";
 import { Link } from "react-router-dom";
-import { getLines, getfName, setFirstLine, readOpening } from "../scripts/FSAcess";
+import { getLines, getfName, setFirstLine, readOpening, getAllOpenings } from "../scripts/FSAcess";
 import ruyLopez from "../assets/ruy-lopez.png";
 import Navbar from "../components/Navbar/Navbar"
 import { useChessboard } from "../contexts/BoardContext";
@@ -18,6 +18,7 @@ const Learn_Pick = () => {
   useEffect(() => {
     setData();
     setPopUpState(false)
+    getAllOpenings()
   }, []);
 
   async function setData() {

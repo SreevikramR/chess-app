@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./styles/HomePage.css";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ShowBoard from "../components/Board/AnimatedBoard";
 import Navbar from "../components/Navbar/Navbar";
 import { useChessboard } from "../contexts/BoardContext";
@@ -8,7 +9,9 @@ import { readOpening, getMoveSequence, setFirstLine } from "../scripts/FSAcess";
 
 function HomePage() {
 
-  const {setMoveHistory, openingLine, setOpeningLine, openingName, setOpeningName, setMoveSequence} = useChessboard()
+  const location = useLocation();
+
+  const {setMoveHistory, openingLine, setOpeningLine, openingName, setOpeningName, setMoveSequence, moveSequence} = useChessboard()
 
   useEffect(() => {
     initData()
