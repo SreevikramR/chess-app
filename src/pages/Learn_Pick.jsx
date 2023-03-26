@@ -11,46 +11,41 @@ import PopUp from "../components/PopUp/PopUp";
 
 const Learn_Pick = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
+  const {setPopUpState, setOpeningName, openingName, setOpeningLine, setLineVariations, allOpenings} = useChessboard()
 
-  const {setPopUpState, setOpeningName, openingName, setOpeningLine, setLineVariations} = useChessboard()
+  let tiles = []
+
+  for(let i=0; i < allOpenings.length; i++){
+    let opening = allOpenings[i]
+    let _openingBlock = (
+      <div className="openingBlock" onClick={() => openPopUp(opening)}>
+        <img src={ruyLopez} />
+        <h2>{opening}</h2>
+      </div>
+    );
+    tiles.push(_openingBlock)
+  }
 
   useEffect(() => {
-    setData();
     setPopUpState(false)
     getAllOpenings()
   }, []);
 
-  async function setData() {
-    const data = await getfName();
-    setName(data);
-  }
-
-  async function openPopUp() {
+  async function openPopUp(opening) {
+    console.log(opening)
     setPopUpState(true)
-    await readOpening(openingName)
-    await setOpeningLine(await setFirstLine(openingName))
+    setOpeningName(opening)
+    await readOpening(opening)
+    await setOpeningLine(await setFirstLine(opening))
     await setLineVariations(await getLines())
   }
-
-  const _openingBlock = () => {
-    return (
-      <div className="openingBlock" onClick={openPopUp}>
-        <img src={ruyLopez} />
-        <h2>{openingName}</h2>
-      </div>
-    );
-  };
 
   const _learn = () => {
     return (
       <>
         <h1>Pick Opening to learn</h1>
         <div style={{ flexDirection: "row" }} className="gridrow">
-          <_openingBlock />
-          <_openingBlock />
-          <_openingBlock />
-          <_openingBlock />
+          {tiles}
         </div>
       </>
     );

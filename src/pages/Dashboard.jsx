@@ -2,19 +2,28 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { getfName } from "../scripts/FSAcess";
+import { getAllOpenings, getfName } from "../scripts/FSAcess";
 import { Link } from "react-router-dom";
 import "./styles/Dashboard.css";
 import learn from "../assets/learn-logo.jpg";
 import train from "../assets/train-logo.jpg";
+import { useChessboard } from "../contexts/BoardContext";
 
 function Dashboard() {
   const navigate = useNavigate();
   const [name, setName] = useState("");
 
+  const {setAllOpenings} = useChessboard()
+
   useEffect(() => {
     setData();
+    getData()
   }, []);
+
+  async function getData(){
+    const openings = await getAllOpenings()
+    setAllOpenings(openings)
+  }
 
   async function setData() {
     const data = await getfName();

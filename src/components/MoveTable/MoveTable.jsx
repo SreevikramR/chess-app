@@ -9,7 +9,11 @@ let previousMoveSequence;
 
 const MoveTable = () => {
   
-  const {moveHistory, openingLine, moveResult, moveSequence, openingComplete} = useChessboard()
+  const {moveHistory, openingLine, moveResult, moveSequence, openingComplete, setOpeningComplete} = useChessboard()
+
+  useEffect(() => {
+    setOpeningComplete(false)
+  }, [])
 
   let sequenceLength = moveSequence ? moveSequence.length : 0;
   let numRows = Math.ceil(sequenceLength / 2);
@@ -26,7 +30,9 @@ const MoveTable = () => {
     if(openingComplete) {
       document.getElementById('movesTable').classList.add('openingComplete')
     } else {
-      document.getElementById('movesTable').classList.remove('openingComplete')
+      setTimeout(() => {
+        document.getElementById('movesTable').classList.remove('openingComplete')
+      }, 10);
     }
   }, [openingComplete])
 

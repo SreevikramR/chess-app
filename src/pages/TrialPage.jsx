@@ -1,5 +1,5 @@
 import './styles/TrialPage.css'
-import { getMoveSequence, readOpening, setFirstLine, getAlternateLine } from '../scripts/FSAcess'
+import { getMoveSequence, getAlternateLine } from '../scripts/FSAcess'
 import { useEffect } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import MoveTable from '../components/MoveTable/MoveTable'

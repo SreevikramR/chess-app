@@ -94,11 +94,13 @@ export async function getAlternateLine(currentLine) {
 
 export async function getAllOpenings(){
   const querySnapshot = await getDocs(collection(db, "openings"));
+  openings = []
   querySnapshot.forEach((doc) => {
     // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, " => ", doc.data());
+    openings.push(doc.id)
   });
-
+  console.log(openings)
+  return openings
 }
 
 function randomNumber(max) {

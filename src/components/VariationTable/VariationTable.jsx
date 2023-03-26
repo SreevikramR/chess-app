@@ -8,11 +8,9 @@ const VariationTable = () => {
 
   let lines = lineVariations
 
-  console.log(lines)
   let rows = []
 
   function setLine(line) {
-    console.log(line)
     setOpeningLine(line);
     setMoveSequence(getMoveSequence(line));
     setOpeningComplete(false)

@@ -59,7 +59,6 @@ const ShowBoard = (props) => {
     const gameCopy = game;
     gameCopy.loadPgn(game.pgn());
     gameCopy.move(move);
-    console.log(move)
     setGame(gameCopy);
     setPosition(game.fen());
     //console.log(game.pgn());
