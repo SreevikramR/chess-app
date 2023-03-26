@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles/HomePage.css";
 import { Link } from "react-router-dom";
 import ShowBoard from "../components/Board/AnimatedBoard";
 import Navbar from "../components/Navbar/Navbar";
+import { useChessboard } from "../contexts/BoardContext";
+import { readOpening, getMoveSequence, setFirstLine } from "../scripts/FSAcess";
 
 function HomePage() {
+
+  const {setMoveHistory, openingLine, setOpeningLine, openingName, setOpeningName, setMoveSequence} = useChessboard()
+
+  useEffect(() => {
+    initData()
+  }, [])
+
+  async function initData() {
+    await setOpeningName('Ruy Lopez')
+    await readOpening(openingName)
+    const line = await setFirstLine()
+    await setOpeningLine(line)
+    const sequence = await getMoveSequence(line)
+    await setMoveSequence(sequence);
+    setMoveHistory([]);
+  }
+
   return (
     <>
       <Navbar inDashboard={false} />

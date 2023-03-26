@@ -3,18 +3,17 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import "./styles/Learn_Pick.css";
 import { Link } from "react-router-dom";
-import { getfName } from "../scripts/FSAcess";
+import { getLines, getfName, setFirstLine, readOpening } from "../scripts/FSAcess";
 import ruyLopez from "../assets/ruy-lopez.png";
 import Navbar from "../components/Navbar/Navbar"
 import { useChessboard } from "../contexts/BoardContext";
 import PopUp from "../components/PopUp/PopUp";
-import { getAlternateLine, setFristLine } from "../scripts/MoveRetreival";
 
 const Learn_Pick = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
 
-  const {setPopUpState, setOpeningName, openingName, setOpeningLine} = useChessboard()
+  const {setPopUpState, setOpeningName, openingName, setOpeningLine, setLineVariations} = useChessboard()
 
   useEffect(() => {
     setData();
@@ -26,9 +25,11 @@ const Learn_Pick = () => {
     setName(data);
   }
 
-  function openPopUp() {
+  async function openPopUp() {
     setPopUpState(true)
-    setOpeningLine(setFristLine(openingName))
+    await readOpening(openingName)
+    await setOpeningLine(await setFirstLine(openingName))
+    await setLineVariations(await getLines())
   }
 
   const _openingBlock = () => {

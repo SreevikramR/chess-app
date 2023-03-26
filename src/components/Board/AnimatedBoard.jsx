@@ -1,18 +1,17 @@
 import { Chess } from "chess.js";
-import { getMoveSequence, getLines, getOpenings } from "../../scripts/MoveRetreival";
 import { Chessboard } from 'react-chessboard'
 import { useState, useEffect } from "react";
+import { getAlternateLine, getMoveSequence, readOpening, setFirstLine } from "../../scripts/FSAcess";
+
+let firstRun = true;
 
 const ShowBoard = () => {
   const [game, setGame] = useState(new Chess());
   const [position, setPosition] = useState();
   const [boardWidth, setBoardWidth] = useState(450);
-  const openingList = getOpenings();
+
   let moveSequence = [];
-  let randomOpeningIndex;
-  let opening;
   let openingVariation;
-  let openingVariationIndex;
   var viewPortWidth = window.innerWidth;
   var viewPortHeight = window.innerHeight;
 
@@ -54,38 +53,34 @@ const ShowBoard = () => {
   };
 
   async function playMoves() {
+    if(firstRun){
+      await readOpening("Ruy Lopez")
+      openingVariation = await setFirstLine("Ruy Lopez")
+      firstRun = false
+    }
     const gameCopy = new Chess();
     game.loadPgn(gameCopy.pgn());
     setPosition(game.fen());
 
-    randomOpeningIndex = Math.round(randomNumber(openingList.length - 1));
-    opening = getOpenings()[randomOpeningIndex];
-    openingVariationIndex = Math.round(
-      randomNumber(getLines(opening).length - 1)
-    );
-    openingVariation = getLines(opening)[openingVariationIndex];
-    moveSequence = getMoveSequence(opening, openingVariation);
+    openingVariation = await getAlternateLine(openingVariation)
+    moveSequence = await getMoveSequence(openingVariation);
 
     for (var i = 0; i < moveSequence.length; i++) {
       if (window.location.pathname === "/") {
         const timer = (ms) => new Promise((res) => setTimeout(res, ms));
-        await timer(1500);
+        await timer(1400);
         makeMove(moveSequence[i]);
       }
     }
 
     const timer = (ms) => new Promise((res) => setTimeout(res, ms));
-    await timer(1500);
+    await timer(1400);
     if (window.location.pathname !== "/") {
       //console.log('stopped')
       return;
     } else {
       //console.log('still running')
       playMoves();
-    }
-
-    function randomNumber(max) {
-      return Math.random() * max;
     }
   }
 

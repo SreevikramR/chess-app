@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Chess } from "chess.js";
-import { getLineIndex } from "../../scripts/MoveRetreival";
 import MoveSelector from "../../scripts/MoveSelector";
 import { Chessboard } from "react-chessboard";
 import { useChessboard } from "../../contexts/BoardContext";
@@ -11,10 +10,9 @@ let tempMoveHistory = []
 
 const TrainBoardWhite = () => {
 
-  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence, setOpeningComplete} = useChessboard()
+  const {moveHistory, setMoveHistory, openingLine, setMoveResult, moveSequence, setOpeningComplete} = useChessboard()
 
   tempMoveHistory = moveHistory;
-  let openingLineIndex = getLineIndex(openingName, openingLine);
 
   var viewPortWidth = window.innerWidth;
   var viewPortHeight = window.innerHeight;
@@ -79,7 +77,7 @@ const TrainBoardWhite = () => {
     setMoveHistory(gameCopy.history());
     tempMoveHistory = gameCopy.history();
     //console.log("last move played: " + moveHistory[moveHistory.length - 1])
-    nextMove = MoveSelector(tempMoveHistory, openingName, openingLineIndex);
+    nextMove = MoveSelector(tempMoveHistory, openingLine);
     //console.log(nextMove)
 
     if (nextMove === "invalid") {

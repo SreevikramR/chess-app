@@ -1,10 +1,9 @@
-import { getLines, getMoveSequence } from "./MoveRetreival.jsx";
+import { getMoveSequence } from "./FSAcess.jsx";
 
-const MoveSelector = (moveHistory, openingName, lineIndex) => {
-  const openingLines = getLines(openingName);
+const MoveSelector = (moveHistory, openingLine) => {
 
   var moveSequence = [];
-  moveSequence = getMoveSequence(openingName, openingLines[lineIndex]);
+  moveSequence = getMoveSequence(openingLine);
 
   //console.log(moveHistory);
   var i = 0;

@@ -1,5 +1,5 @@
 import './styles/TrialPage.css'
-import { getLineIndex, getAlternateLine, getMoveSequence } from '../scripts/MoveRetreival'
+import { getMoveSequence, readOpening, setFirstLine, getAlternateLine } from '../scripts/FSAcess'
 import { useEffect } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import MoveTable from '../components/MoveTable/MoveTable'
@@ -7,19 +7,12 @@ import TrainBoardWhite from '../components/Board/TrainBoardWhite'
 import { useChessboard } from '../contexts/BoardContext'
 
 function TrialPage() {
-  const {setMoveHistory, openingLine, setOpeningLine, openingName, setMoveSequence, moveSequence} = useChessboard()
+  const {setMoveHistory, openingLine, setOpeningLine, openingName, setOpeningName, setMoveSequence, moveSequence} = useChessboard()
 
-  let openingLineIndex = getLineIndex(openingName, openingLine);
-  setMoveSequence(getMoveSequence(openingName, openingLine));
-
-  useEffect(() => {
-    changeLine()
-  }, []);
-
-  function changeLine() {
-    setOpeningLine(getAlternateLine(openingName, openingLine));
-    openingLineIndex = getLineIndex(openingName, openingLine);
-    setMoveSequence(getMoveSequence(openingName, openingLine[openingLineIndex]));
+  async function changeLine() {
+    const line = await getAlternateLine(openingLine)
+    setOpeningLine(line)
+    setMoveSequence(getMoveSequence(line));
     console.log(moveSequence)
     setMoveHistory([]);
   }

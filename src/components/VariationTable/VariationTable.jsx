@@ -1,19 +1,20 @@
 import React from 'react'
-import { getLines } from '../../scripts/MoveRetreival'
 import { useChessboard } from '../../contexts/BoardContext'
-import { getMoveSequence } from '../../scripts/MoveRetreival'
+import { getMoveSequence } from '../../scripts/FSAcess'
 import './VariationTable.css'
 
 const VariationTable = () => {
-  const {openingName, setOpeningLine, setMoveSequence, setOpeningComplete, setMoveHistory} = useChessboard()
+  const {lineVariations, setOpeningLine, setMoveSequence, setOpeningComplete, setMoveHistory} = useChessboard()
 
-  let lines = getLines(openingName)
+  let lines = lineVariations
+
+  console.log(lines)
   let rows = []
 
   function setLine(line) {
     console.log(line)
     setOpeningLine(line);
-    setMoveSequence(getMoveSequence(openingName, line));
+    setMoveSequence(getMoveSequence(line));
     setOpeningComplete(false)
     setMoveHistory([]);
   }
