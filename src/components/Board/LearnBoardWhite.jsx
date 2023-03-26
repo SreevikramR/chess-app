@@ -49,10 +49,12 @@ const LearnBoardWhite = () => {
       //console.log(expectedMove)
       gameCopy.move(expectedMove)
       let history = gameCopy.history({verbose: true})
-      arrowArray.push(history.at(-1).from)
-      arrowArray.push(history.at(-1).to)
+      let tempArray = []
+      tempArray.push(history.at(-1).from)
+      tempArray.push(history.at(-1).to)
+      arrowArray.push(tempArray)
     } else {
-      arrowArray = ['', '']
+      arrowArray = [['c4', 'd3'], ['d3', 'f6']]
       setOpeningComplete(true)
     }
   }
@@ -94,22 +96,27 @@ const LearnBoardWhite = () => {
 
     if (nextMove === "invalid") {
       setMoveResult("wrong");
+      
       setTimeout(() => {
         game.undo();
         setGame(gameBackup);
         setPosition(gameBackup.fen());
+        getExpectedMove()
       }, 100);
     } else if (nextMove == null) {
       setMoveResult("correct");
+      arrowArray = [['c4', 'd3'], ['d3', 'f6']]
+      setOpeningComplete(true)
       //console.log("move sequence complete")
     } else {
       setTimeout(() => {
         setMoveResult("correct");
 
         if (tempMoveHistory.length === moveSequence.length - 1) {
-          //console.log("move sequence complete")
+          arrowArray = [['c4', 'd3'], ['d3', 'f6']]
+          setOpeningComplete(true)
         }
-
+        
         playMove(nextMove);
       }, 250);
     }
@@ -118,7 +125,7 @@ const LearnBoardWhite = () => {
   const playMove = (nextMove) => {
     const gameCopy = game;
     gameCopy.loadPgn(game.pgn());
-    console.log(nextMove)
+    //console.log(nextMove)
     gameCopy.move(nextMove);
     setGame(gameCopy);
     setPosition(game.fen());
@@ -157,7 +164,7 @@ const LearnBoardWhite = () => {
       onPieceDrop={onDrop}
       isDraggablePiece={isDraggable}
       animationDuration={750}
-      customArrows={[arrowArray]}
+      customArrows={arrowArray}
       customArrowColor="rgb(87, 109, 232, 0.9)"
     />
   );

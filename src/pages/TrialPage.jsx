@@ -13,7 +13,7 @@ function TrialPage() {
   setMoveSequence(getMoveSequence(openingName, openingLine));
 
   useEffect(() => {
-    setMoveHistory([]);
+    changeLine()
   }, []);
 
   function changeLine() {

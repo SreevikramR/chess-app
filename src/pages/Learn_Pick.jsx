@@ -8,7 +8,7 @@ import ruyLopez from "../assets/ruy-lopez.png";
 import Navbar from "../components/Navbar/Navbar"
 import { useChessboard } from "../contexts/BoardContext";
 import PopUp from "../components/PopUp/PopUp";
-import { getAlternateLine } from "../scripts/MoveRetreival";
+import { getAlternateLine, setFristLine } from "../scripts/MoveRetreival";
 
 const Learn_Pick = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Learn_Pick = () => {
 
   function openPopUp() {
     setPopUpState(true)
-    setOpeningLine(getAlternateLine(openingName, ""))
+    setOpeningLine(setFristLine(openingName))
   }
 
   const _openingBlock = () => {

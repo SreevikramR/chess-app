@@ -9,7 +9,7 @@ export const useChessboard = () => useContext(ChessboardContext)
 export const BoardProvider = ({ children }) => {
 	const [moveHistory, setMoveHistory] = useState([]);
 	const [openingName, setOpeningName] = useState("Ruy Lopez")
-  const [openingLine, setOpeningLine] = useState("Cozio Defense");
+  const [openingLine, setOpeningLine] = useState("");
   const [moveResult, setMoveResult] = useState("correct");
 	const [moveSequence, setMoveSequence] = useState([]);
 	const [popUpState, setPopUpState] = useState(false);

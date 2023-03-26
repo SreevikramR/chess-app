@@ -1,6 +1,6 @@
 import data from "../Data/openings.json";
 
-const ruyLopezLines = ["Alapin Defense", "Cozio Defense", "Schliemann Defense", "Bird Variation", "Steinitz Defense", "Classical Defense"];
+const ruyLopezLines = ["Alapin Defense", "Bird Variation", "Classical Defense", "Cozio Defense", "Schliemann Defense", "Steinitz Defense"];
 
 export function getLines(openingName) {
   const openingLines = Object.keys(data.Openings[openingName]["lines"]);
@@ -24,18 +24,29 @@ export function getLineIndex(openingName, openingLine) {
   }
 }
 
-export function getAlternateLine(openingName, currentLine) {
-  let foundLine = false;
+export function setFristLine(openingName){
+  let linesList;
   switch (openingName) {
     case "Ruy Lopez":
-      while (foundLine === false) {
-        //console.log("finding")
-        let index = Math.round(randomNumber(ruyLopezLines.length - 1));
-        if (ruyLopezLines[index] != currentLine) {
-          return ruyLopezLines[index];
-        }
-      }
+      linesList = ruyLopezLines;
   }
+  return linesList[0]
+}
+
+export function getAlternateLine(openingName, currentLine) {
+  let foundLine = false;
+  let linesList;
+  switch (openingName) {
+    case "Ruy Lopez":
+      linesList = ruyLopezLines
+  }
+    while (foundLine === false) {
+      //console.log("finding")
+      let index = Math.round(randomNumber(linesList.length - 1));
+      if (linesList[index] != currentLine) {
+        return linesList[index];
+      }
+    }
 }
 
 function randomNumber(max) {
