@@ -15,6 +15,12 @@ const MoveTable = () => {
     setOpeningComplete(false)
   }, [])
 
+  useEffect(() => {
+    moveIds = []
+    correctMoves = []
+    wrongMove = ""
+  }, [openingLine])
+
   let sequenceLength = moveSequence ? moveSequence.length : 0;
   let numRows = Math.ceil(sequenceLength / 2);
   if (previousMoveSequence !== moveSequence) {

@@ -9,6 +9,8 @@ import PasswordResetPage from "./pages/PasswordResetPage";
 import Learn_Pick from "./pages/Learn_Pick";
 import { BoardProvider } from "./contexts/BoardContext";
 import LearnPage from "./pages/LearnPage"
+import Train_Pick from "./pages/Train_Pick";
+import TrainPage from "./pages/TrainPage"
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="/reset" element={<PasswordResetPage />} />
         <Route path="/learn_now" element={<Learn_Pick />} />
         <Route path="/learn" element={<LearnPage />} />
+        <Route path="/train_now" element={<Train_Pick/>} />
+        <Route path="/train" element={<TrainPage/>}/>
       </Routes>
     </BoardProvider>
   );

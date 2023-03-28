@@ -15,6 +15,7 @@ export const BoardProvider = ({ children }) => {
   	const [moveResult, setMoveResult] = useState("correct");
 	const [moveSequence, setMoveSequence] = useState([]);
 	const [popUpState, setPopUpState] = useState(false);
+	const [popUpType, setPopUpType] = useState("")
 	const [game, setGame] = useState(new Chess());
 	const [position, setPosition] = useState()
 	const [openingComplete, setOpeningComplete] = useState(false)
@@ -35,6 +36,8 @@ export const BoardProvider = ({ children }) => {
 			setMoveSequence,
 			popUpState,
 			setPopUpState,
+			popUpType,
+			setPopUpType,
 			game,
 			setGame,
 			position,

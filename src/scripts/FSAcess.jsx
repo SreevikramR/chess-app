@@ -81,6 +81,8 @@ export function getMoveSequence(openingLine){
 export async function getAlternateLine(currentLine) {
   if(openingData == undefined){
     await readOpening("Ruy Lopez")
+  } else if (previousOpeningName != "Ruy Lopez"){
+    await readOpening("Ruy Lopez")
   }
   let foundLine = false;
     while (foundLine === false) {

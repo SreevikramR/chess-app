@@ -8,6 +8,7 @@ import "./styles/Dashboard.css";
 import learn from "../assets/learn-logo.jpg";
 import train from "../assets/train-logo.jpg";
 import { useChessboard } from "../contexts/BoardContext";
+import Train_Pick from "./Train_Pick";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -77,10 +78,12 @@ function Dashboard() {
 
   const _train = () => {
     return (
-      <div className="trainBox">
-        <img src={train} className="trainImg" />
-        <h2>Practice</h2>
-      </div>
+      <Link to='/train_now'>
+        <div className="trainBox">
+          <img src={train} className="trainImg" />
+          <h2>Practice</h2>
+        </div>
+      </Link>
     );
   };
 

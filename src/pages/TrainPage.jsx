@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import LearnBoard from '../components/Board/LearnBoard'
+import TrainBoard from '../components/Board/TrainBoard'
 import MoveTable from '../components/MoveTable/MoveTable'
 import { useChessboard } from '../contexts/BoardContext'
 import { getMoveSequence, getAlternateLine } from '../scripts/FSAcess'
@@ -44,7 +45,7 @@ const LearnPage = () => {
             <VariationTable />
           </div>
           <div className="learn_hc2">
-            <LearnBoard/>
+            <TrainBoard/>
           </div>
           <div className="learn_hc3">
             <h1 style={{paddingTop:0}}>{openingName}</h1>

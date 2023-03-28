@@ -9,7 +9,7 @@ import Navbar from "../components/Navbar/Navbar"
 import { useChessboard } from "../contexts/BoardContext";
 import PopUp from "../components/PopUp/PopUp";
 
-const Learn_Pick = () => {
+const Train_Pick = () => {
   const navigate = useNavigate();
   const {setPopUpState, setOpeningName, openingName, setOpeningLine, setLineVariations, allOpenings, setPlayerColor, setPopUpType} = useChessboard()
 
@@ -28,7 +28,7 @@ const Learn_Pick = () => {
 
   useEffect(() => {
     setPopUpState(false)
-    setPopUpType('learn')
+    setPopUpType('train')
     getAllOpenings()
   }, []);
 
@@ -45,7 +45,7 @@ const Learn_Pick = () => {
   const _learn = () => {
     return (
       <>
-        <h1>Pick Opening to learn</h1>
+        <h1>Pick Opening to train</h1>
         <div style={{ flexDirection: "row" }} className="gridrow">
           {tiles}
         </div>
@@ -77,4 +77,4 @@ const Learn_Pick = () => {
   }
 };
 
-export default Learn_Pick;
+export default Train_Pick;
