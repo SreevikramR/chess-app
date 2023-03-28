@@ -18,6 +18,7 @@ export const BoardProvider = ({ children }) => {
 	const [game, setGame] = useState(new Chess());
 	const [position, setPosition] = useState()
 	const [openingComplete, setOpeningComplete] = useState(false)
+	const [playerColor, setPlayerColor] = useState('white')
 	
 
 	return (
@@ -44,6 +45,8 @@ export const BoardProvider = ({ children }) => {
 			setLineVariations,
 			allOpenings,
 			setAllOpenings,
+			playerColor,
+			setPlayerColor,
 			}}>
 			{ children }
 		</ChessboardContext.Provider>

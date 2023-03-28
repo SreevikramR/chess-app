@@ -7,9 +7,10 @@ import React, { useState, useEffect } from 'react'
 let nextMove;
 let tempMoveHistory = []
 let arrowArray = []
+let playedFirstMove = false;
 
-const LearnBoardWhite = () => {
-  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence, game, setGame, position, setPosition, setOpeningComplete, openingComplete} = useChessboard()
+const LearnBoard = () => {
+  const {moveHistory, setMoveHistory, openingLine, setMoveResult, openingName, moveSequence, game, setGame, position, setPosition, setOpeningComplete, openingComplete, playerColor, setPlayerColor} = useChessboard()
 
   tempMoveHistory = moveHistory;
 
@@ -34,8 +35,32 @@ const LearnBoardWhite = () => {
 
   useEffect(() => {
     setGame(new Chess());
-    getExpectedMove()
+    if(playerColor == 'black'){
+      console.log('black playing')
+      setTimeout(() => {
+        if(!playedFirstMove){
+          blackFirstMove()
+          playedFirstMove = true
+        }
+      }, 1500);  
+    } else {
+      getExpectedMove()
+    }
   }, []);
+
+  async function blackFirstMove(){
+    const gameBackup = game;
+    gameBackup.loadPgn(game.pgn());
+    const gameCopy = game;
+    gameCopy.loadPgn(game.pgn());
+    //console.log(move)
+    console.log(moveSequence)
+    await gameCopy.move(moveSequence[0]);
+    await setGame(gameCopy);
+    await setPosition(game.fen());
+    await setMoveHistory(gameCopy.history());
+    getExpectedMove()
+  }
 
   function getExpectedMove() {
     arrowArray = []
@@ -61,7 +86,14 @@ const LearnBoardWhite = () => {
     const gameCopy = new Chess();
     game.loadPgn(gameCopy.pgn());
     setPosition(game.fen());
-    getExpectedMove()
+    if(playerColor == 'black'){
+      setTimeout(() => {
+        blackFirstMove()
+        playedFirstMove = true
+      }, 800);
+    } else {
+      getExpectedMove()
+    }
   }, [openingLine]);
 
   useEffect(() => {
@@ -142,16 +174,29 @@ const LearnBoardWhite = () => {
 
   const isDraggable = (piece, sourceSquare) => {
     if(!openingComplete) {
-      if (
-        piece.piece === "wP" ||
-        piece.piece === "wR" ||
-        piece.piece === "wB" ||
-        piece.piece === "wN" ||
-        piece.piece === "wK" ||
-        piece.piece === "wQ"
-      ) {
-        return true;
-      } else return false;
+      if (playerColor == 'white') {
+        if (
+          piece.piece === "wP" ||
+          piece.piece === "wR" ||
+          piece.piece === "wB" ||
+          piece.piece === "wN" ||
+          piece.piece === "wK" ||
+          piece.piece === "wQ"
+        ) {
+          return true;
+        } else return false;
+      } else if (playerColor == 'black'){
+        if (
+          piece.piece === "bP" ||
+          piece.piece === "bR" ||
+          piece.piece === "bB" ||
+          piece.piece === "bN" ||
+          piece.piece === "bK" ||
+          piece.piece === "bQ"
+        ) {
+          return true;
+        } else return false;
+      }
     } else return false;
   };
 
@@ -164,8 +209,9 @@ const LearnBoardWhite = () => {
       animationDuration={750}
       customArrows={arrowArray}
       customArrowColor="rgb(87, 109, 232, 0.9)"
+      boardOrientation={playerColor}
     />
   );
 }
 
-export default LearnBoardWhite
+export default LearnBoard
