@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import LearnBoard from '../components/Board/LearnBoard'
 import MoveTable from '../components/MoveTable/MoveTable'
@@ -8,7 +8,7 @@ import VariationTable from '../components/VariationTable/VariationTable'
 import './styles/LearnPage.css'
 
 const LearnPage = () => {
-  const {setMoveHistory, openingLine, setOpeningLine, openingName, setMoveSequence, moveSequence, setOpeningComplete} = useChessboard()
+  const {setMoveHistory, openingLine, setOpeningLine, openingName, setMoveSequence, moveSequence, setOpeningComplete, setPlayerColor} = useChessboard()
 
   useEffect(() => {
     setMoveSequence(getMoveSequence(openingLine));
@@ -20,12 +20,20 @@ const LearnPage = () => {
     setMoveHistory([]);
   }, []);
 
+  const [isPlayerWhite, setIsPlayerWhite] = useState(true);
+
   async function changeLine() {
     setOpeningLine(await getAlternateLine(openingLine));
     setMoveSequence(getMoveSequence(openingLine));
     setOpeningComplete(false)
     setMoveHistory([]);
   }
+
+  function togglePlayerColor() {
+    setIsPlayerWhite(isWhite => !isWhite);
+    setPlayerColor(color => color === 'white' ? 'black' : 'white');
+  }
+
 
   return (
     <>
@@ -40,6 +48,9 @@ const LearnPage = () => {
           </div>
           <div className="learn_hc3">
             <h1 style={{paddingTop:0}}>{openingName}</h1>
+            <div className="toggle-switch" onClick={togglePlayerColor}>
+              <div className={`toggle-switch-handle ${isPlayerWhite ? 'white' : 'black'}`}></div>
+            </div>
               <MoveTable />
             </div>
           </div>

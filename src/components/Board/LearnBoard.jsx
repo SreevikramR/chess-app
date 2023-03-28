@@ -86,6 +86,7 @@ const LearnBoard = () => {
     const gameCopy = new Chess();
     game.loadPgn(gameCopy.pgn());
     setPosition(game.fen());
+    setOpeningComplete(false)
     if(playerColor == 'black'){
       setTimeout(() => {
         blackFirstMove()
@@ -94,7 +95,7 @@ const LearnBoard = () => {
     } else {
       getExpectedMove()
     }
-  }, [openingLine]);
+  }, [openingLine, playerColor]);
 
   useEffect(() => {
     viewPortWidth = window.innerWidth;
