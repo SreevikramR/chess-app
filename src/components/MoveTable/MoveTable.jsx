@@ -106,7 +106,7 @@ const MoveTable = () => {
     }, [moveHistory]);
   
     return (
-      <table id='movesTable'>
+      <table id='movesTable' className="moveTable">
         <thead>
           <tr>
             <th colSpan={3}>

@@ -14,13 +14,15 @@ const Navbar = ({ inDashboard }) => {
   }
 
   useEffect(() => {
-    const user = auth.currentUser;
-    if (user == null) {
-      setLoggedIn(false);
-    } else {
-      setData();
-      setLoggedIn(true);
-    }
+    setTimeout(() => {
+      const user = auth.currentUser;
+      if (user == null) {
+        setLoggedIn(false);
+      } else {
+        setData();
+        setLoggedIn(true);
+      }
+    }, 50);
   }, []);
 
   const _loggedIn = () => {
