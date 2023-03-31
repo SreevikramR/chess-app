@@ -112,79 +112,81 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
-      <Navbar inDashboard={false}/>
-      <div className="content">
-        <h1>Register</h1>
-        <div id="errorBox" className="errorBox">
-          <p className="errorMessage">{errorMessage}</p>
-        </div>
-        <form>
-          <div className="nameSection">
-            <div className="fNameSection">
-              <label className="fNameLabel">First Name</label>
-              <input
-                type="text"
-                placeholder="First"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                className="fName"
-              />
-            </div>
-            <div className="lNameSection">
-              <label className="lNameLabel">Last Name</label>
-              <input
-                type="text"
-                placeholder="Last"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                className="lName"
-              />
-            </div>
+    <>
+      <React.Suspense fallback={<span>Loading...</span>}>
+        <Navbar inDashboard={false}/>
+        <div className="content">
+          <h1>Register</h1>
+          <div id="errorBox" className="errorBox">
+            <p className="errorMessage">{errorMessage}</p>
           </div>
-          <label>Username</label>
-          <input
-            type="text"
-            placeholder="username"
-            id="text"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="name@mail.com"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            placeholder="**********"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <label>Password Confirmation</label>
-          <input
-            type="password"
-            placeholder="**********"
-            id="passwordConfirm"
-            value={passwordConfirm}
-            onChange={(e) => setPasswordConfirm(e.target.value)}
-          />
-          <button
-            onClick={handleSubmit}
-            type="submit"
-            className="submitButton"
-            disabled={loading}
-          >
-            Register!
-          </button>
-        </form>
-      </div>
-    </div>
+          <form>
+            <div className="nameSection">
+              <div className="fNameSection">
+                <label className="fNameLabel">First Name</label>
+                <input
+                  type="text"
+                  placeholder="First"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="fName"
+                />
+              </div>
+              <div className="lNameSection">
+                <label className="lNameLabel">Last Name</label>
+                <input
+                  type="text"
+                  placeholder="Last"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="lName"
+                />
+              </div>
+            </div>
+            <label>Username</label>
+            <input
+              type="text"
+              placeholder="username"
+              id="text"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="name@mail.com"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <label>Password</label>
+            <input
+              type="password"
+              placeholder="**********"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label>Password Confirmation</label>
+            <input
+              type="password"
+              placeholder="**********"
+              id="passwordConfirm"
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.target.value)}
+            />
+            <button
+              onClick={handleSubmit}
+              type="submit"
+              className="submitButton"
+              disabled={loading}
+            >
+              Register!
+            </button>
+          </form>
+        </div>
+      </React.Suspense>
+    </>
   );
 };
 

@@ -3,15 +3,16 @@ import { lazy } from "react";
 import HomePage from "./pages/HomePage";
 import { Routes, Route } from "react-router-dom";
 import { BoardProvider } from "./contexts/BoardContext";
-import TrialPage from "./pages/TrialPage";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
-import Dashboard from "./pages/Dashboard";
-import PasswordResetPage from "./pages/PasswordResetPage";
-import Learn_Pick from "./pages/Learn_Pick";
-import LearnPage from "./pages/LearnPage"
-import Train_Pick from "./pages/Train_Pick";
-import TrainPage from "./pages/TrainPage";
+
+const TrialPage = lazy(() => import('./pages/TrialPage'));
+const RegisterPage = lazy(() => import('./pages/RegisterPage'));
+const LoginPage = lazy(() => import('./pages/LoginPage'));
+const Dashboard = lazy(() => import('./pages/RegisterPage'));
+const PasswordResetPage = lazy(() => import('./pages/PasswordResetPage'));
+const Learn_Pick = lazy(() => import('./pages/Learn_Pick'));
+const Train_Pick = lazy(() => import('./pages/Train_Pick'));
+const TrainPage = lazy(() => import('./pages/TrainPage'));
+const LearnPage = lazy(() => import('./pages/LearnPage'));
 
 function App() {
   return (

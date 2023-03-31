@@ -41,26 +41,28 @@ function Dashboard() {
   const _dashboard = () => {
     return (
       <>
-        <div className="navbar">
-          <div className="leftAlign">
-            <Link to={"/"} style={{ textDecoration: "none" }}>
-              <h4>Chess Openings</h4>
-            </Link>
+        <React.Suspense fallback={<span>Loading...</span>}>
+          <div className="navbar">
+            <div className="leftAlign">
+              <Link to={"/"} style={{ textDecoration: "none" }}>
+                <h4>Chess Openings</h4>
+              </Link>
+            </div>
+            <div className="rightAlign">
+              <div className="navBarText">Welcome back {name}!</div>
+            </div>
           </div>
-          <div className="rightAlign">
-            <div className="navBarText">Welcome back {name}!</div>
+          <div className="content">
+            <h1>Dashboard</h1>
+            <h2>What would you like to do today?</h2>
+            <div className="dbOptions">
+              <_learn />
+              <_train />
+            </div>
+            <button onClick={handleSignOut}>Sign Out</button>
+            <button onClick={() => navigate("/")}>Home</button>
           </div>
-        </div>
-        <div className="content">
-          <h1>Dashboard</h1>
-          <h2>What would you like to do today?</h2>
-          <div className="dbOptions">
-            <_learn />
-            <_train />
-          </div>
-          <button onClick={handleSignOut}>Sign Out</button>
-          <button onClick={() => navigate("/")}>Home</button>
-        </div>
+        </React.Suspense>
       </>
     );
   };

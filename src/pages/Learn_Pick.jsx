@@ -67,11 +67,13 @@ const Learn_Pick = () => {
   } else {
     return (
       <>
-        <Navbar />
-        <div className="content">
-          <_learn />
-        </div>
-        <PopUp />
+        <React.Suspense fallback={<span>Loading...</span>}>
+          <Navbar />
+          <div className="content">
+            <_learn />
+          </div>
+          <PopUp />
+        </React.Suspense>
       </>
     );
   }

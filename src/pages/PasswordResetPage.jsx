@@ -55,41 +55,43 @@ const PasswordResetPage = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="content">
-        <h1>Login</h1>
-        <div id="errorBox" className="errorBox">
-          <p className="errorMessage">{errorMessage}</p>
+    <>
+      <React.Suspense fallback={<span>Loading...</span>}>
+        <Navbar />
+        <div className="content">
+          <h1>Login</h1>
+          <div id="errorBox" className="errorBox">
+            <p className="errorMessage">{errorMessage}</p>
+          </div>
+          <form>
+            <label>Email</label>
+            <input
+              type="email"
+              placeholder="name@mail.com"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <button
+              onClick={handleSubmit}
+              type="submit"
+              className="submitButton"
+              disabled={loading}
+            >
+              Reset Password
+            </button>
+          </form>
+          <div className="otherActions">
+            <Link to="/register" style={{ textDecoration: "none" }}>
+              <label className="registerButton">Register</label>
+            </Link>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <label className="forgotPassword">Login</label>
+            </Link>
+          </div>
         </div>
-        <form>
-          <label>Email</label>
-          <input
-            type="email"
-            placeholder="name@mail.com"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <button
-            onClick={handleSubmit}
-            type="submit"
-            className="submitButton"
-            disabled={loading}
-          >
-            Reset Password
-          </button>
-        </form>
-        <div className="otherActions">
-          <Link to="/register" style={{ textDecoration: "none" }}>
-            <label className="registerButton">Register</label>
-          </Link>
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            <label className="forgotPassword">Login</label>
-          </Link>
-        </div>
-      </div>
-    </div>
+      </React.Suspense>
+    </>
   );
 };
 

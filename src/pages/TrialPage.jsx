@@ -1,6 +1,6 @@
 import './styles/TrialPage.css'
 import { getMoveSequence, getAlternateLine } from '../scripts/FSAcess'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import MoveTable from '../components/MoveTable/MoveTable'
 import TrainBoard from '../components/Board/TrainBoard'
@@ -26,28 +26,30 @@ function TrialPage() {
 
   return (
     <>
-      <Navbar inDashboard={false} />
-      <div className="content">
-        <div className="row">
-          <div className="hc1">
-            <TrainBoard />
-          </div>
-          <div className="hc2">
-            <h1>{openingName}</h1>
-            <div className="toggle-switch" onClick={togglePlayerColor}>
-              <div className={`toggle-switch-handle ${isPlayerWhite ? 'white' : 'black'}`}></div>
+      <React.Suspense fallback={<span>Loading...</span>}>
+        <Navbar inDashboard={false} />
+        <div className="content">
+          <div className="row">
+            <div className="hc1">
+              <TrainBoard />
             </div>
+            <div className="hc2">
+              <h1>{openingName}</h1>
+              <div className="toggle-switch" onClick={togglePlayerColor}>
+                <div className={`toggle-switch-handle ${isPlayerWhite ? 'white' : 'black'}`}></div>
+              </div>
 
-            <MoveTable />
+              <MoveTable />
 
-            {/* <img src={image}/>
-                        <h3>{movePlayed}{moveMessage}</h3> */}
+              {/* <img src={image}/>
+                          <h3>{movePlayed}{moveMessage}</h3> */}
+            </div>
+          </div>
+          <div className="navigationButtons">
+            <button onClick={changeLine}>Try another line!</button>
           </div>
         </div>
-        <div className="navigationButtons">
-          <button onClick={changeLine}>Try another line!</button>
-        </div>
-      </div>
+      </React.Suspense>
     </>
   );
 }

@@ -38,25 +38,27 @@ const LearnPage = () => {
 
   return (
     <>
-      <Navbar/>
-      <div className='content'>
-        <div className="learn_row">
-          <div className='learn_hc1'>
-            <VariationTable />
-          </div>
-          <div className="learn_hc2">
-            <TrainBoard/>
-          </div>
-          <div className="learn_hc3">
-            <h1 style={{paddingTop:0, marginLeft:"15%"}}>{openingName}</h1>
-            <div className="toggle-switch" onClick={togglePlayerColor}>
-              <div className={`toggle-switch-handle ${isPlayerWhite ? 'white' : 'black'}`}></div>
+      <React.Suspense fallback={<span>Loading...</span>}>
+        <Navbar/>
+        <div className='content'>
+          <div className="learn_row">
+            <div className='learn_hc1'>
+              <VariationTable />
             </div>
-              <MoveTable />
+            <div className="learn_hc2">
+              <TrainBoard/>
             </div>
-          </div>
-        <button onClick={changeLine}>Try another line!</button>
-      </div>
+            <div className="learn_hc3">
+              <h1 style={{paddingTop:0, marginLeft:"15%"}}>{openingName}</h1>
+              <div className="toggle-switch" onClick={togglePlayerColor}>
+                <div className={`toggle-switch-handle ${isPlayerWhite ? 'white' : 'black'}`}></div>
+              </div>
+                <MoveTable />
+              </div>
+            </div>
+          <button onClick={changeLine}>Try another line!</button>
+        </div>
+      </React.Suspense>
     </>
   )
 }
