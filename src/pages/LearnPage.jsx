@@ -47,7 +47,7 @@ const LearnPage = () => {
             <LearnBoard/>
           </div>
           <div className="learn_hc3">
-            <h1 style={{paddingTop:0}}>{openingName}</h1>
+            <h1 style={{paddingTop:0, marginLeft:"15%"}}>{openingName}</h1>
             <div className="toggle-switch" onClick={togglePlayerColor}>
               <div className={`toggle-switch-handle ${isPlayerWhite ? 'white' : 'black'}`}></div>
             </div>

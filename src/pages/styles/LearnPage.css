@@ -31,6 +31,7 @@
   border-radius: 15px;
   background-color: #ccc;
   cursor: pointer;
+  margin-left: 15%;
 }
   
 .toggle-switch-handle {
