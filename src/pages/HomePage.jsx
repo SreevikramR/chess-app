@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import "./styles/HomePage.css";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import ShowBoard from "../components/Board/AnimatedBoard";
-import Navbar from "../components/Navbar/Navbar";
 import { useChessboard } from "../contexts/BoardContext";
 import { readOpening, getMoveSequence, setFirstLine } from "../scripts/FSAcess";
+
+const Navbar = React.lazy(() => import('../components/Navbar/Navbar'))
+const ShowBoard = React.lazy(() => import('../components/Board/AnimatedBoard'));
 
 function HomePage() {
 
