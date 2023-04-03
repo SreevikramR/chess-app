@@ -1,6 +1,6 @@
 import './styles/LoginPage.css'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { auth } from '../firebase'
 import { setPersistence, signInWithEmailAndPassword, browserSessionPersistence } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
@@ -65,46 +65,44 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <React.Suspense fallback={<span>Loading...</span>}>
-        <Navbar inDashboard={false} />
-        <div className="content">
-          <h1>Login</h1>
-          <div id="errorBox" className="errorBox">
-            <p className="errorMessage">{errorMessage}</p>
-          </div>
-          <form>
-            <label>Email</label>
-            <input
-              type="email"
-              placeholder="name@mail.com"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label>Password</label>
-            <input
-              type="password"
-              placeholder="**********"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button onClick={handleSubmit} type="submit" className="submitButton">
-              Login!
-            </button>
-          </form>
-          <div className="otherActions">
-            <Link to="/register" style={{ textDecoration: "none" }}>
-              <label className="registerButton" >Register</label>
-            </Link>
-            <Link to="/reset" style={{ textDecoration: "none", cursor:"pointer" }}>
-              <label className="forgotPassword" >Forgot Password?</label>
-            </Link>
-          </div>
+    <React.Suspense fallback={<span>Loading...</span>}>
+      <Navbar inDashboard={false} />
+      <div className="content">
+        <h1>Login</h1>
+        <div id="errorBox" className="errorBox">
+          <p className="errorMessage">{errorMessage}</p>
         </div>
-      </React.Suspense>
-    </>
+        <form>
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="name@mail.com"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="**********"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button onClick={handleSubmit} type="submit" className="submitButton">
+            Login!
+          </button>
+        </form>
+        <div className="otherActions">
+          <Link to="/register" style={{ textDecoration: "none" }}>
+            <label className="registerButton" >Register</label>
+          </Link>
+          <Link to="/reset" style={{ textDecoration: "none", cursor:"pointer" }}>
+            <label className="forgotPassword" >Forgot Password?</label>
+          </Link>
+        </div>
+      </div>
+    </React.Suspense>
   );
 };
 

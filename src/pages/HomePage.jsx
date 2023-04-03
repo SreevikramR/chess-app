@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useChessboard } from "../contexts/BoardContext";
 import { readOpening, getMoveSequence, setFirstLine } from "../scripts/FSAcess";
-
-const Navbar = React.lazy(() => import('../components/Navbar/Navbar'))
-const ShowBoard = React.lazy(() => import('../components/Board/AnimatedBoard'));
+import Navbar from "../components/Navbar/Navbar";
+import ShowBoard from "../components/Board/AnimatedBoard";
 
 function HomePage() {
 
@@ -30,6 +29,7 @@ function HomePage() {
 
   return (
     <>
+      <React.Suspense fallback={<span>Loading...</span>}>
       <Navbar inDashboard={false} />
       <div className="content">
         <div className="row">
@@ -47,6 +47,7 @@ function HomePage() {
           </div>
         </div>
       </div>
+      </React.Suspense>
     </>
   );
 }
