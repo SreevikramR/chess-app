@@ -1,5 +1,5 @@
-# :construction: WORK IN PROGRESS :construction:
+# :construction: CHANGE OF FRAMEWORK :construction:
 
 ## Overview
 
-This is a website that helps learn and master chess openings. 
+This app is being built with NextJS in a new repository here - [Learn Openings](https://github.com/SreevikramR/learn-openings)
